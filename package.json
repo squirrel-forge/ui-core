@@ -1,0 +1,29 @@
+{
+  "name": "@squirrel-forge/ui-core",
+  "version": "0.5.0",
+  "description": "A collection of ui classes, functions and abstracts",
+  "main": "src/es6/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "directories": {
+    "src": "src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/squirrel-forge/ui-core.git"
+  },
+  "keywords": [
+    "ui",
+    "es6",
+    "utilities",
+    "abstracts",
+    "components"
+  ],
+  "author": "Daniel Hartwell <me@siux.info> (http://siux.info)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/squirrel-forge/ui-core/issues"
+  },
+  "homepage": "https://github.com/squirrel-forge/ui-core#readme"
+}
