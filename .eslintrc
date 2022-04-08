@@ -11,8 +11,6 @@
     "sourceType": "module"
   },
 
-  "ignorePatterns": ["**/dist/js/*.js", "**/node_modules/*.js", "**/vendor/*.js"],
-
   "rules": {
     "strict": [ 2, "global" ],
 
