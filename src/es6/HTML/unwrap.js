@@ -9,7 +9,7 @@ export function unwrap( element ) {
 
     // Check for a valid element
     if ( !( element instanceof HTMLElement || !element.isConnected ) ) {
-        throw new Error( 'unwrap(element) Must be a valid HTMLElement' );
+        throw new Error( 'unwrap() Argument element must be a valid HTMLElement' );
     }
 
     // Unwrap children if available

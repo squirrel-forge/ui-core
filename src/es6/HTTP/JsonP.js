@@ -105,18 +105,18 @@ export class JsonP {
 
         // Url check
         if ( typeof url !== 'string' || !url.length ) {
-            throw new Error( 'Argument url must be an url string' );
+            throw new Error( 'JsonP::constructor() Argument url must be an url string' );
         }
 
         // Timeout limit
         if ( Number.isNaN( limit ) || typeof limit !== 'number' ) {
-            throw new Error( 'Argument limit must be an integer' );
+            throw new Error( 'JsonP::constructor() Argument limit must be an integer' );
         }
         this.#limit = limit;
 
         // Require success callback
         if ( typeof success !== 'function' ) {
-            throw new Error( 'Argument success must be a Function' );
+            throw new Error( 'JsonP::constructor() Argument success must be a Function' );
         }
         this.#callback_success = success;
 
@@ -174,7 +174,7 @@ export class JsonP {
         this.#clearTimeout();
         this.#timeout = window.setTimeout( () => {
             this.#destroy();
-            this.#callback_timeout( new Error( 'JSONP timeout for: ' + src ) );
+            this.#callback_timeout( new Error( 'JsonP::timeout() Timeout for: ' + src ) );
         }, this.#limit );
     }
 

@@ -49,7 +49,7 @@ export class EventDispatcher {
     /**
      * Constructor
      * @constructor
-     * @param {null|HTMLElement} element - The target element
+     * @param {null|HTMLElement|Object} element - The target element
      * @param {null|EventDispatcher} parent - Parent event dispatcher, only used for simulated events
      * @param {null|console} debug - Console or alike object to show debugging
      */

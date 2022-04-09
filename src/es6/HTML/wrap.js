@@ -11,19 +11,19 @@ export function wrap( elements, wrapper = 'div', strict = true ) {
 
     // Ensure valid element/s to wrap
     if ( !( elements instanceof HTMLElement || elements instanceof NodeList || elements instanceof Array ) ) {
-        throw new Error( 'wrap(elements) Must be a valid HTMLElement, NodeList or Array containing only HTMLElement/s' );
+        throw new Error( 'wrap() Argument elements must be a valid HTMLElement, NodeList or Array containing only HTMLElement\'s' );
     }
 
     // Strict check or create wrapper
     if ( typeof wrapper === 'string' ) {
         wrapper = document.createElement( wrapper );
     } else if ( strict && wrapper instanceof HTMLElement && wrapper.isConnected ) {
-        throw new Error( 'wrap(wrapper) Must not be part of the dom' );
+        throw new Error( 'wrap() Argument wrapper must not be part of the dom' );
     }
 
     // Wrapper must be an element
     if ( !( wrapper instanceof HTMLElement ) ) {
-        throw new Error( 'wrap(wrapper) Must be a valid Tag name or HTMLElement' );
+        throw new Error( 'wrap() Argument wrapper must be a valid Tag name or HTMLElement' );
     }
 
     // Ensure an array of elements
