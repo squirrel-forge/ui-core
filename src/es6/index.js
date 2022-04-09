@@ -9,6 +9,10 @@
 /**
  * Animation
  */
+export { scrollComplete } from './Animation/scrollComplete.js';
+export { Scroller } from './Animation/Scroller.js';
+export { scrollTo } from './Animation/scrollTo.js';
+export { slideToggle, slideHide, slideShow } from './Animation/slide.js';
 
 /**
  * Array
