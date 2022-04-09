@@ -1,5 +1,5 @@
 # @squirrel-forge/ui-core
-A collection of ui classes, functions and abstracts.
+A collection of ui classes, functions and abstracts made for the browser and babel compatible.
 
 ## Installation
 
@@ -14,9 +14,10 @@ import { Class, function } from '@squirrel-forge/ui-core';
 ```
 
 ### Namespaces
-Package contents listing by namespace, if your looking for examples check any of the dependent packages.
+Package contents listing by namespace, if you are looking for examples check the code docs and any of the dependent packages.
 
 #### Animation
+ - WIP
 
 #### Array
  - mergeArray( unique, clone, arr, arr, .. ) : Array
