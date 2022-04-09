@@ -1,7 +1,7 @@
 /**
  * Requires
  */
-import { strand } from '../String/strand';
+import { strand } from '../String/strand.js';
 
 /**
  * @callback JsonPCallback

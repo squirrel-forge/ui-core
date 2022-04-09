@@ -87,7 +87,7 @@ export { ucfirst } from './String/ucfirst.js';
  * Ui core
  */
 export { ComponentStates } from './UiCore/ComponentStates.js';
-export { Config } from './UiCore/Config';
+export { Config } from './UiCore/Config.js';
 export { ElementClassStates } from './UiCore/ElementClassStates.js';
 export { Plugin } from './UiCore/Plugin.js';
 export { Plugins } from './UiCore/Plugins.js';
