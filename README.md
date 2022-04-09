@@ -17,7 +17,14 @@ import { Class, function } from '@squirrel-forge/ui-core';
 Package contents listing by namespace, if you are looking for examples check the code docs and any of the dependent packages.
 
 #### Animation
- - WIP
+ - scrollComplete( callback, delay, context ) : void
+ - Scroller( options, context, debug )
+   - static getUrlWithHash( hash, url ) : string
+   - config : Object
+ - scrollTo( element, offset, behaviour, minDiff ) : void
+ - slideToggle( element, speed, easing, callback ) : void
+ - slideHide( element, speed, easing, callback ) : void
+ - slideShow( element, speed, easing, callback ) : void
 
 #### Array
  - mergeArray( unique, clone, arr, arr, .. ) : Array
