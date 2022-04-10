@@ -16,10 +16,49 @@ class ConfigException extends Exception {}
 
 /**
  * Config
- * TODO: add option change callback/event in some form
  * @class
  */
 export class Config {
+
+    /**
+     * Clone object recursive
+     * @public
+     * @param {Object} data - Data to clone
+     * @return {Object|Array} - Cloned object
+     */
+    static clone( data ) {
+        return cloneObject( data, true );
+    }
+
+    /**
+     * Merge object recursive
+     * @public
+     * @param {Object} data - Data to merge
+     * @param {Object} target - Target to merge to
+     * @param {boolean} extend -  Set true to add undefined|null properties
+     * @return {void}
+     */
+    static merge( data, target, extend = false ) {
+        mergeObject( target, data, extend, true, true );
+    }
+
+    /**
+     * Build defaults from inheritance
+     * @public
+     * @param {Array} extended - Inheritance array
+     * @return {null|Object} - Merged configs
+     */
+    static extendInheritance( extended ) {
+        if ( !extended.length ) return null;
+        const config = extended.shift();
+        for ( let i = 0; i < extended.length; i++ ) {
+            if ( !isPojo( extended[ i ] ) ) {
+                throw new ConfigException( 'Argument extended must contain only plain Objects' );
+            }
+            this.merge( config, extended[ i ], true );
+        }
+        return config;
+    }
 
     /**
      * Config defaults
@@ -57,39 +96,16 @@ export class Config {
         }
 
         // Update default config with extensions
-        for ( let i = 0; i < extended.length; i++ ) {
-            if ( !isPojo( extended[ i ] ) ) {
-                throw new ConfigException( 'Argument extended must contain only plain Objects' );
-            }
-            this.constructor.merge( extended[ i ], this.#defaults, true );
-        }
+        const inherited_defaults = this.constructor.extendInheritance( extended );
+        if ( inherited_defaults ) this.constructor.merge( inherited_defaults, this.#defaults, true );
 
         // Setup active config data
         this.#data = this.constructor.clone( this.#defaults );
     }
 
     /**
-     * Clone object recursive
-     * @param {Object} data - Data to clone
-     * @return {Object|Array} - Cloned object
-     */
-    static clone( data ) {
-        return cloneObject( data, true );
-    }
-
-    /**
-     * Merge object recursive
-     * @param {Object} data - Data to merge
-     * @param {Object} target - Target to merge to
-     * @param {boolean} extend -  Set true to add undefined|null properties
-     * @return {void}
-     */
-    static merge( data, target, extend = false ) {
-        mergeObject( target, data, extend, true, true );
-    }
-
-    /**
      * Defaults getter
+     * @public
      * @return {Object} - Defaults data object
      */
     get defaults() {
@@ -98,6 +114,7 @@ export class Config {
 
     /**
      * Data getter
+     * @public
      * @return {Object} - Config data object
      */
     get data() {
@@ -106,6 +123,7 @@ export class Config {
 
     /**
      * Direct config access
+     * @public
      * @return {Object} - Config data object
      */
     get exposed() {
@@ -114,6 +132,7 @@ export class Config {
 
     /**
      * Get config value
+     * @public
      * @param {string} name - Value name
      * @return {*|null} - Config value
      */
@@ -123,6 +142,7 @@ export class Config {
 
     /**
      * Set config value
+     * @public
      * @param {string} name - Value name
      * @param {*} value - Value to set
      * @return {void}
@@ -133,6 +153,7 @@ export class Config {
 
     /**
      * Merge data into config
+     * @public
      * @param {Object} data - Data object to merge
      * @param {boolean} extend -  Set true to add undefined|null properties
      * @return {void}
