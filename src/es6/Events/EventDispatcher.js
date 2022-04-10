@@ -47,6 +47,15 @@ export class EventDispatcher {
     #simulated = {};
 
     /**
+     * Check for compatibility
+     * @param {*} obj - EventDispatcher target or parent
+     * @return {boolean} - Is compatible
+     */
+    static isCompat( obj ) {
+        return obj.addEventListener && obj.removeEventListener && obj.dispatchEvent;
+    }
+
+    /**
      * Constructor
      * @constructor
      * @param {null|HTMLElement|Object} element - The target element
@@ -56,8 +65,13 @@ export class EventDispatcher {
     constructor( element = null, parent = null, debug = null ) {
 
         // Require element or null
-        if ( !( element === null || element instanceof HTMLElement ) ) {
-            throw new EventDispatcherException( 'Argument element must be null or an instance of HTMLElement' );
+        if ( !( element === null || this.constructor.isCompat( element ) ) ) {
+            throw new EventDispatcherException( 'Argument element must be null or a compatible instance' );
+        }
+
+        // Require parent or null
+        if ( !( parent === null || this.constructor.isCompat( parent ) ) ) {
+            throw new EventDispatcherException( 'Argument parent must be null or a compatible instance' );
         }
 
         // Debugger instance
@@ -101,12 +115,21 @@ export class EventDispatcher {
     }
 
     /**
+     * Check if simulated
+     * @public
+     * @return {boolean} - True if no target element is set
+     */
+    get isSimulated() {
+        return this.#target === null;
+    }
+
+    /**
      * Get event data
      * @private
      * @param {null|Object} data - Data object
      * @return {Object} - Updated data object
      */
-    #data( data ) {
+    #parseEventData( data ) {
         data = data || { target : this };
         if ( !data.target ) data.target = this;
         if ( !data.current ) data.current = this;
@@ -162,28 +185,28 @@ export class EventDispatcher {
      * Dispatch event
      * @public
      * @param {string} name - Event name
-     * @param {null|object} data - Event data
+     * @param {null|object} detail - Event data
      * @param {boolean} bubbles - Allow event to bubble
      * @param {boolean} cancelable - Allow event to be cancelled
      * @return {void}
      */
-    dispatchEvent( name, data = null, bubbles = true, cancelable = false ) {
-        data = this.#data( data );
+    dispatchEvent( name, detail = null, bubbles = true, cancelable = false ) {
+        detail = this.#parseEventData( detail );
 
         // Debug info
         if ( this.#debug ) {
             this.#debug.groupCollapsed( this.constructor.name + '::dispatchEvent [ ' + name + ' ]' );
             this.#debug.log( 'On', this.#target || this );
-            this.#debug.log( 'With', data );
+            this.#debug.log( 'With', detail );
             this.#debug.groupEnd();
         }
 
         // Create event
-        const event = new CustomEvent( name, { bubbles : bubbles, cancelable : cancelable, detail : data } );
+        const event = new CustomEvent( name, { bubbles, cancelable, detail } );
 
         // Simulated event
         if ( this.#target === null ) {
-            this.#runSimulated( name, event, data );
+            this.#runSimulated( name, event, detail );
         } else {
 
             // Actual event
@@ -209,6 +232,16 @@ export class EventDispatcher {
         if ( isPojo( useCaptureOptions ) && useCaptureOptions.once === true ) {
             this.#simulated[ name ][ this.#simulated[ name ].length - 1 ].__EventDispatcherOnce = true;
         }
+    }
+
+    /**
+     * Check name for existing handlers
+     * @public
+     * @param {string} name - Event name
+     * @return {boolean} - True if event has listeners
+     */
+    hasSimulated( name ) {
+        return this.#simulated[ name ] && this.#simulated[ name ].length;
     }
 
     /**
