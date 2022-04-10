@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.0
+ - Added *escapeHTML* for string escaping.
+ - Added *getScrollbarWidth* to calculate browser scrollbar width.
+ - Added *getVisibility* to get element visibility details.
+ - Added *EventDispatcher.isSimulated* and *EventDispatcher.hasSimulated()* for reflective purposes.
+ - Renamed *EventDispatcher.dispatchEvent()* argument data to detail.
+ - Added *EventDispatcher.isCompat()* static method.
+ - Improved *EventDispatcher* argument validation.
+ - Improved *Config*, fixed inheritance.
+ - Improved *Scroller*, removed event context is always window and added initial ready event option.
+
 ## 0.6.0
  - Added *scrollComplete* callback handler.
  - Added *Scroller* class utility for initial and binding scrollTo links.

@@ -51,6 +51,8 @@ Package contents listing by namespace, if you are looking for examples check the
    - debug : null|console
    - target : null|HTMLElement
    - parent : null|EventDispatcher|HTMLElement
+   - isSimulated : boolean
+   - hasSimulated( name ) : boolean
    - dispatchEvent( name, data, bubbles, cancelable ) : void
    - addEventListener( name, callback, options ) : void
    - removeEventListener( name, callback, options ) : void
