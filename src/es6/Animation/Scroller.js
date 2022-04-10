@@ -2,6 +2,7 @@
  * Requires
  */
 import { EventDispatcher } from '../Events/EventDispatcher.js';
+import { docReady } from '../Events/docReady.js';
 import { scrollComplete } from './scrollComplete.js';
 import { scrollTo } from './scrollTo.js';
 import { mergeObject } from '../Object/mergeObject.js';
@@ -14,7 +15,7 @@ import { isPojo } from '../Object/isPojo.js';
  * @property {document.body|HTMLElement} context - Context to select scrollTo links from, default: document.body
  * @property {string} selector - Scroll to link selector, default: [href^="#"]
  * @property {boolean} capture - Capture initial scroll, default: true
- * @property {number} initial - Initial scroll delay after capture
+ * @property {number|'ready'} initial - Initial scroll delay after capture
  * @property {number} hashClean - scrollComplete delay, default: 300
  */
 
@@ -46,21 +47,20 @@ export class Scroller extends EventDispatcher {
 
     /**
      * Initial scroll target
-     * @private
+     * @public
      * @property
      * @type {null|HTMLElement}
      */
-    #initial_target = null;
+    initial = null;
 
     /**
      * Constructor
      * @constructor
      * @param {Object|ScrollerOptions} options - Scroller options
-     * @param {window|Object} context - Event context
      * @param {null|console|Object} debug - Debug object
      */
-    constructor( options = {}, context = null, debug = null ) {
-        super( context || window, null, debug );
+    constructor( options = {}, debug = null ) {
+        super( window, null, debug );
 
         // Set default config
         this.config = {
@@ -127,14 +127,18 @@ export class Scroller extends EventDispatcher {
         if ( hash && hash.length > 1 ) {
 
             // Only update if an actual target is found
-            this.#initial_target = document.getElementById( hash.substr( 1 ) );
-            if ( this.#initial_target ) {
+            this.initial = document.getElementById( hash.substr( 1 ) );
+            if ( this.initial ) {
                 history.replaceState( null, document.title, this.constructor.getUrlWithHash( 's2:' + hash.substr( 1 ) ) );
             }
         }
 
-        // Delayed initial scroll
-        if ( this.#initial_target ) {
+        // Scroll when ready
+        if ( this.config.initial === 'ready' ) {
+            docReady( () => { this.#initial_scroll( hash ); } );
+        } else {
+
+            // Delayed initial scroll
             window.setTimeout( () => { this.#initial_scroll( hash ); }, this.config.initial );
         }
     }
@@ -146,16 +150,16 @@ export class Scroller extends EventDispatcher {
      * @return {void}
      */
     #initial_scroll( hash ) {
-        if ( this.#initial_target ) {
+        if ( this.initial ) {
 
             // Restore hash after scroll/delay
             scrollComplete( () => {
                 history.replaceState( null, document.title, this.constructor.getUrlWithHash( hash.substr( 1 ) ) );
-                this.dispatchEvent( 'scroll.initial.complete', { initial : this.#initial_target } );
+                this.dispatchEvent( 'scroll.initial.complete', { initial : this.initial } );
             }, this.config.hashClean );
 
             // Scroll to initial target
-            scrollTo( this.#initial_target, this.config.offset );
+            scrollTo( this.initial, this.config.offset );
         }
     }
 }
