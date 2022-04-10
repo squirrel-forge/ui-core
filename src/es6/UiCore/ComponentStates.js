@@ -153,21 +153,29 @@ export class ComponentStates {
         let is_global_changed = false, to = null;
         const from = this.#global;
         if ( is_global ) {
+
+            // Do not set globals unless changed
             if ( name !== from ) {
                 is_global_changed = true;
                 to = name;
             } else {
+
+                // Skip along and ignore the set command
                 return;
             }
         }
 
         // Complex state options
         if ( state !== true ) {
+
+            // Unset any states
             if ( state.unsets instanceof Array ) {
                 for ( let i = 0; i < state.unsets.length; i++ ) {
                     this.unset( state.unsets[ i ] );
                 }
             }
+
+            // Set/unset any class states
             if ( state.classOn ) this.#component.dom.classList.add( state.classOn );
             if ( state.classOff ) this.#component.dom.classList.remove( state.classOff );
         }
@@ -180,6 +188,8 @@ export class ComponentStates {
 
         // Set individual state
         this.#named[ name ] = true;
+
+        // Dispatch corresponding event
         if ( is_global_changed ) {
             this.#component.dispatchEvent( 'state.changed', { from, to } );
         } else {
@@ -200,6 +210,8 @@ export class ComponentStates {
 
         // Complex state options
         if ( state !== true ) {
+
+            // Set/unset any class states
             if ( state.classOn ) this.#component.dom.classList.remove( state.classOn );
             if ( state.classOff ) this.#component.dom.classList.add( state.classOff );
         }

@@ -196,8 +196,8 @@ export class EventDispatcher {
         // Debug info
         if ( this.#debug ) {
             this.#debug.groupCollapsed( this.constructor.name + '::dispatchEvent [ ' + name + ' ]' );
-            this.#debug.log( 'On', this.#target || this );
-            this.#debug.log( 'With', detail );
+            this.#debug.log( 'element >', this.#target || this );
+            this.#debug.log( 'data >', detail );
             this.#debug.groupEnd();
         }
 
@@ -276,8 +276,8 @@ export class EventDispatcher {
         // Notify register
         if ( this.#debug ) {
             this.#debug.groupCollapsed( this.constructor.name + '::addEventListener [ ' + name + ' ]' );
-            this.#debug.log( 'On', this.#target );
-            this.#debug.log( 'With', callback );
+            this.#debug.log( 'element >', this.#target );
+            this.#debug.log( 'callback >', callback );
             this.#debug.groupEnd();
         }
     }
