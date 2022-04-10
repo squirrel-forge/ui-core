@@ -45,6 +45,8 @@ export { appendAfter } from './HTML/appendAfter.js';
 export { appendHTML } from './HTML/appendHTML.js';
 export { attributeJSON } from './HTML/attributeJSON.js';
 export { getElementTagType } from './HTML/getElementTagType.js';
+export { getScrollbarWidth } from './HTML/getScrollbarWidth.js';
+export { getVisibility } from './HTML/getVisibility.js';
 export { prependChild } from './HTML/prependChild.js';
 export { uniqid, requireUniqid } from './HTML/uniqid.js';
 export { unwrap } from './HTML/unwrap.js';
@@ -79,6 +81,7 @@ export { strCreate } from './Object/strCreate.js';
 /**
  * String
  */
+export { escapeHTML } from './String/escapeHTML.js';
 export { simpleReplace } from './String/simpleReplace.js';
 export { str2node } from './String/str2node.js';
 export { str2time } from './String/str2time.js';
