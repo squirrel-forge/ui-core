@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.7.1
+ - Fixed *Config.extendInheritance()* arguments order of merge use.
+
 ## 0.7.0
  - Added *escapeHTML* for string escaping.
  - Added *getScrollbarWidth* to calculate browser scrollbar width.

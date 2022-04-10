@@ -55,7 +55,7 @@ export class Config {
             if ( !isPojo( extended[ i ] ) ) {
                 throw new ConfigException( 'Argument extended must contain only plain Objects' );
             }
-            this.merge( config, extended[ i ], true );
+            this.merge( extended[ i ], config, true );
         }
         return config;
     }
