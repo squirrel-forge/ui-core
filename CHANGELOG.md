@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.7.2
+ - Improve logging for *Plugins* class and removed internal loaded log.
+
 ## 0.7.1
  - Fixed *Config.extendInheritance()* arguments order of merge use.
 

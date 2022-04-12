@@ -32,14 +32,6 @@ export class Plugins {
     #context = null;
 
     /**
-     * Loaded plugin names
-     * @private
-     * @property
-     * @type {Array<string>}
-     */
-    #loaded = [];
-
-    /**
      * Loaded plugins map
      * @private
      * @property
@@ -101,6 +93,7 @@ export class Plugins {
         if ( !( plugins instanceof Array ) ) {
             throw new PluginsException( 'Argument plugins must be an Array' );
         }
+        if ( this.#debug ) this.#debug.group( this.constructor.name + '::load' );
         for ( let i = 0; i < plugins.length; i++ ) {
             let data = plugins[ i ];
             if ( !( data instanceof Array ) ) {
@@ -108,9 +101,7 @@ export class Plugins {
             }
             this.init( ...data );
         }
-        if ( this.#debug ) {
-            this.#debug.log( this.constructor.name + '::load', this.#loaded );
-        }
+        if ( this.#debug ) this.#debug.groupEnd();
     }
 
     /**
@@ -134,7 +125,6 @@ export class Plugins {
         } catch ( e ) {
             throw new PluginsException( 'Error initializing plugin: ' + name, e );
         }
-        this.#loaded.push( name );
         if ( this.#debug ) this.#debug.log( this.constructor.name + '::init', name );
         return this.#plugins[ name ];
     }
@@ -169,6 +159,7 @@ export class Plugins {
      * @return {Object} - Result object
      */
     run( method, params = [], restrict = null ) {
+        if ( this.#debug ) this.#debug.group( this.constructor.name + '::run' );
         const results = {};
         const names = Object.keys( this.#plugins );
         for ( let i = 0; i < names.length; i++ ) {
@@ -182,6 +173,7 @@ export class Plugins {
         if ( this.#debug && !Object.keys( results ).length ) {
             this.#debug.log( this.constructor.name + '::run No results:', method, params, restrict );
         }
+        if ( this.#debug ) this.#debug.groupEnd();
         return results;
     }
 
