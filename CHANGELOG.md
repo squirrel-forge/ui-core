@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.0
+ - Restructured package separated to *@squirrel-forge/ui-util@0.8.2* module.
+
 ## 0.7.2
  - Improve logging for *Plugins* class and removed internal loaded log.
 

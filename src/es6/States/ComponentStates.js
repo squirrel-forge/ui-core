@@ -1,9 +1,7 @@
 /**
  * Requires
  */
-import { isPojo } from '../Object/isPojo.js';
-import { Exception } from '../Error/Exception.js';
-import { mergeObject } from '../Object/mergeObject.js';
+import { Exception, isPojo, mergeObject } from '@squirrel-forge/ui-util';
 
 /**
  * Component states exception

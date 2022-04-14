@@ -1,15 +1,17 @@
 /**
  * Requires
  */
-import { Config } from './Config.js';
-import { ComponentStates } from './ComponentStates.js';
-import { Plugins } from './Plugins.js';
-import { EventDispatcher } from '../Events/EventDispatcher.js';
-import { attributeJSON } from '../HTML/attributeJSON.js';
-import { Exception } from '../Error/Exception.js';
-import { strCreate } from '../Object/strCreate.js';
-import { isPojo } from '../Object/isPojo.js';
-import { requireUniqid } from '../HTML/uniqid.js';
+import { ComponentStates } from '../States/ComponentStates.js';
+import {
+    Exception,
+    EventDispatcher,
+    Config,
+    Plugins,
+    attributeJSON,
+    requireUniqid,
+    strCreate,
+    isPojo
+} from '@squirrel-forge/ui-util';
 
 /**
  * Ui component exception
@@ -19,6 +21,7 @@ class UiComponentException extends Exception {}
 
 /**
  * Ui component
+ * @abstract
  * @class
  */
 export class UiComponent extends EventDispatcher {

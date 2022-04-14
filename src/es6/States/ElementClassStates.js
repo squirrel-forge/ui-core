@@ -1,10 +1,7 @@
 /**
  * Requires
  */
-import { isPojo } from '../Object/isPojo.js';
-import { Exception } from '../Error/Exception.js';
-import { mergeObject } from '../Object/mergeObject.js';
-import { requireUniqid } from '../HTML/uniqid.js';
+import { Exception, isPojo, mergeObject, requireUniqid } from '@squirrel-forge/ui-util';
 
 /**
  * Element class states exception

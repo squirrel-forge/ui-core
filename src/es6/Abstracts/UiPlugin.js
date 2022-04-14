@@ -1,9 +1,7 @@
 /**
  * Requires
  */
-import { isPojo } from '../Object/isPojo.js';
-import { Plugin } from './Plugin.js';
-import { Exception } from '../Error/Exception.js';
+import { Exception, Plugin, isPojo } from '@squirrel-forge/ui-util';
 
 /**
  * UiPlugin exception
