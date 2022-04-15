@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.1
+ - Added init complete check for *UiPlugin.initComponent()*, now throws exception if run a second time.
+
 ## 0.8.0
  - Restructured package separated to *@squirrel-forge/ui-util@0.8.2* module.
 

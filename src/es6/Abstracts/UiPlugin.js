@@ -41,6 +41,14 @@ export class UiPlugin extends Plugin {
     registerEvents = null;
 
     /**
+     * Component init state
+     * @private
+     * @property
+     * @type {boolean}
+     */
+    #initComplete = false;
+
+    /**
      * Constructor
      * @constructor
      * @param {Object} options - Options object
@@ -105,6 +113,10 @@ export class UiPlugin extends Plugin {
      * @return {void}
      */
     initComponent( context ) {
+        if ( this.#initComplete ) {
+            throw new UiPluginException( 'Plugin already initialized: ' + this.constructor.name );
+        }
+        this.#initComplete = true;
         this._context_check( context );
 
         // Register dom event listeners
