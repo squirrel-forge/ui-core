@@ -1,6 +1,6 @@
 {
   "name": "@squirrel-forge/ui-core",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "A collection of interface, classes, functions and abstracts made for the browser and babel compatible.",
   "main": "src/es6/index.js",
   "scripts": {
@@ -32,6 +32,6 @@
     "@squirrel-forge/simple-webpack": "^0.9.1"
   },
   "dependencies": {
-    "@squirrel-forge/ui-util": "^0.8.2"
+    "@squirrel-forge/ui-util": "^0.8.3"
   }
 }

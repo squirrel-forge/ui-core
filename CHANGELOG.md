@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.2
+ - Updated dependencies.
+
 ## 0.8.1
  - Added init complete check for *UiPlugin.initComponent()*, now throws exception if run a second time.
 
