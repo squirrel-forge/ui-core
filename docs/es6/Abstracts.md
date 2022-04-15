@@ -33,6 +33,17 @@ class UiComponent extends EventDispatcher {
 ```
 For more details check the [UiComponent source file](../../src/es6/Abstracts/UiComponent.js).
 
+#### Settings mechanics
+Settings may be passed via the constructor, but can also be set via a *data-config* attribute:
+```html
+<component data-config='{"name":"value"}'></component>
+```
+or via named attributes:
+```html
+<component data-name="value"></component>
+```
+The data- is removed and dashes replaced with dots when converting to a config option.
+
 ---
 
 ### UiPlugin

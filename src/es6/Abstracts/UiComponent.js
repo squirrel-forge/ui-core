@@ -203,16 +203,19 @@ export class UiComponent extends EventDispatcher {
     /**
      * Get config from attributes
      * @public
+     * @param {Array<string>} disregard - Disregard options names
      * @return {null|Object} - Config object
      */
-    getConfigFromAttributes() {
+    getConfigFromAttributes( disregard = [ 'id', 'class', 'type', 'state', 'config' ] ) {
         if ( this.#dom.hasAttributes() ) {
             const result = {};
             const attrs = this.#dom.attributes;
             for ( let i = 0; i < attrs.length; i++ ) {
                 const name = this.constructor.configNameFromAttr( attrs[ i ].name );
-                const value = this.constructor.configValueFromAttr( attrs[ i ].value );
-                strCreate( name, value, result, true, true, this.debug );
+                if ( !disregard.includes( name ) ) {
+                    const value = this.constructor.configValueFromAttr( attrs[ i ].value );
+                    strCreate( name, value, result, true, true, this.debug );
+                }
             }
             return result;
         }

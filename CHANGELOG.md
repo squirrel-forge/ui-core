@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.3
+ - Improved *UiComponent* docs.
+ - Fixed *UiComponent.getConfigFromAttributes()* to disregard unwanted attribute conversion.
+
 ## 0.8.2
  - Updated dependencies.
 
