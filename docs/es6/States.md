@@ -39,13 +39,13 @@ ElementClassStates class - Loose element class states with callbacks and relatio
 ```javascript
 class ElementClassStates {
   constructor( states = null ) {}
-    exposed : Object
-    extend( states ) {} // void
-    is( name, element ) {} // boolean
-    has( name ) {} // boolean
-    get( name ) {} // Object
-    set( name, element ) {} // void
-    unset( name, element ) {} // void
+  exposed : Object
+  extend( states ) {} // void
+  is( name, element ) {} // boolean
+  has( name ) {} // boolean
+  get( name ) {} // Object
+  set( name, element ) {} // void
+  unset( name, element ) {} // void
 }
 ```
 For more details check the [ElementClassStates source file](../../src/es6/States/ElementClassStates.js).

@@ -31,7 +31,7 @@ class UiComponent extends EventDispatcher {
   event_state( event ) {} // void
 }
 ```
-For more details check the [UiComponent source file](../../src/es6/Abstract/UiComponent.js).
+For more details check the [UiComponent source file](../../src/es6/Abstracts/UiComponent.js).
 
 ---
 
@@ -50,7 +50,7 @@ class UiPlugin extends Plugin {
   initComponent( context ) {} // void
 }
 ```
-For more details check the [UiPlugin source file](../../src/es6/Abstract/UiPlugin.js).
+For more details check the [UiPlugin source file](../../src/es6/Abstracts/UiPlugin.js).
 
 ---
 
