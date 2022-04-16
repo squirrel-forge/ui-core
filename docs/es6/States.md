@@ -2,7 +2,7 @@
 > [Back to table of contents](../README.md)
 
 # Documentation
-### Javascript / Var
+### Javascript / States
 > [Abstracts](Abstracts.md) <[ States ]> [Table of contents](../README.md)
 
 ## Table of contents
