@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.4
+ - Fixed *ElementClassStates* timeout collision with multiple *autoUnset* states on the same element.
+
 ## 0.8.3
  - Improved *UiComponent* docs.
  - Fixed *UiComponent.getConfigFromAttributes()* to disregard unwanted attribute conversion.

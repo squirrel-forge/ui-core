@@ -140,17 +140,17 @@ export class ElementClassStates {
         if ( state.autoUnset ) {
 
             // Get or create unique element id
-            const id = requireUniqid( element, 'ecs-', true );
+            const state_unset_id = requireUniqid( element, 'ecs-', true ) + '-' + name;
 
             // Clear any existing timeout
-            this.#clear_auto_unset( id );
+            this.#clear_auto_unset( state_unset_id );
 
             // Setup new timeout for remove
             const timeout = typeof state.autoUnset === 'number' ? state.autoUnset : this.#defaultTimeout;
-            this.#autoUnsetRefs[ id ] = window.setTimeout( () => {
+            this.#autoUnsetRefs[ state_unset_id ] = window.setTimeout( () => {
 
                 // Clear and unset state if reached
-                this.#clear_auto_unset( id );
+                this.#clear_auto_unset( state_unset_id );
                 this.unset( name, element );
             }, timeout );
         }
