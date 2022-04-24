@@ -160,17 +160,26 @@ export class UiComponent extends EventDispatcher {
     }
 
     /**
-     * Convert attribute name to config
+     * Convert attribute name to config dot path
      * @public
      * @param {string} name - Attribute name
      * @return {string} - Config name
      */
-    static configNameFromAttr( name ) {
+    static configDotNameFromAttr( name ) {
         name = name.replace( /-/g, '.' );
         if ( name.substr( 0, 5 ) === 'data.' ) {
             name = name.substr( 5 );
         }
         return name;
+    }
+
+    /**
+     * Convert config dot path to camel case
+     * @param {string} name - Dot path
+     * @return {string} - Camel case
+     */
+    static configCamelNameFromDot( name ) {
+        return name.toLowerCase().replace( /\.(.)/g, ( m, g ) => { return g.toUpperCase(); } );
     }
 
     /**
@@ -211,10 +220,14 @@ export class UiComponent extends EventDispatcher {
             const result = {};
             const attrs = this.#dom.attributes;
             for ( let i = 0; i < attrs.length; i++ ) {
-                const name = this.constructor.configNameFromAttr( attrs[ i ].name );
+                const name = this.constructor.configDotNameFromAttr( attrs[ i ].name );
+                const value = this.constructor.configValueFromAttr( attrs[ i ].value );
                 if ( !disregard.includes( name ) ) {
-                    const value = this.constructor.configValueFromAttr( attrs[ i ].value );
                     strCreate( name, value, result, true, true, this.debug );
+                }
+                const camel = this.constructor.configCamelNameFromDot( name );
+                if ( !disregard.includes( camel ) ) {
+                    strCreate( camel, value, result, true, true, this.debug );
                 }
             }
             return result;

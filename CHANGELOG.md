@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.5
+ - Added additional camel casing for attribute config names.
+
 ## 0.8.4
  - Fixed *ElementClassStates* timeout collision with multiple *autoUnset* states on the same element.
 
