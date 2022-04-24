@@ -74,16 +74,35 @@ export class UiComponent extends EventDispatcher {
         super( element, null, debug );
         if ( !( element instanceof HTMLElement ) ) throw new UiComponentException( 'Argument element must be a HTMLElement' );
         this.#dom = element;
+
+        // Require element id and mark as ui-component
         requireUniqid( element, this.constructor.name.toLowerCase() + '-', true );
         this.#markAsUi();
+
+        // Initialize plugins and extend defaults
         this.#plugins = new Plugins( plugins, this, true, debug );
         this.#plugins.run( 'extendDefaultConfig', [ extend ] );
+
+        // Create component config
         this.#config = new Config( defaults, extend );
-        this.#loadElementConfig();
+
+        // Set config options from attributes
         this.#setConfigFromAttributes();
+
+        // Ensure the config property overrides any attributes
+        this.#loadElementConfig();
+
+        // Apply any plugin scoped configs
+        this.plugins.run( 'applyConfig' [ this.config ] );
+
+        // Apply settings explicitly provided by constructor arguments
         if ( isPojo( settings ) ) this.config.merge( settings );
+
+        // Create states handler and extend with any plugin states
         this.#states = new ComponentStates( this, states );
         this.#plugins.run( 'extendAvailableStates', [ this.#states ] );
+
+        // Initialize component
         if ( init ) this.init();
     }
 
