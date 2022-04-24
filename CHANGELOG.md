@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.6
+ - Improved *UiComponent* config loading order including plugin scoped configs.
+ - Added *UiPlugin.applyConfig()* to apply local plugin *options* to plugin context config.
+
 ## 0.8.5
  - Added additional camel casing for attribute config names.
 
