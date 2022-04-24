@@ -93,7 +93,7 @@ export class UiComponent extends EventDispatcher {
         this.#loadElementConfig();
 
         // Apply any plugin scoped configs
-        this.plugins.run( 'applyConfig' [ this.config ] );
+        this.#plugins.run( 'applyConfig', [ this.config ] );
 
         // Apply settings explicitly provided by constructor arguments
         if ( isPojo( settings ) ) this.config.merge( settings );
