@@ -115,8 +115,11 @@ export class UiPlugin extends Plugin {
 
     /**
      * Apply plugin scoped config to component
+     *  Is run during construction, some things might not be available yet
+     * @public
      * @param {Config|Object} config - Context config object
      * @param {UiComponent|Object} context - Plugin context
+     * @return {void}
      */
     applyConfig( config, context ) {
         this._context_check( context );

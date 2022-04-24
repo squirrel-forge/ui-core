@@ -18,7 +18,8 @@ UiComponent class - Base abstract for ui components with some useful methods.
 ```javascript
 // Event names: initialized
 class UiComponent extends EventDispatcher {
-  static configNameFromAttr( name ) {} // string
+  static configDotNameFromAttr( name ) {} // string
+  static configCamelNameFromDot( name ) {} // string
   static configValueFromAttr( value ) {} // *
   constructor( element, settings = null, defaults = {}, extend = [], states = {}, plugins = [], init = true, debug = null ) {}
   dom : HTMLElement
@@ -55,9 +56,11 @@ class UiPlugin extends Plugin {
   constructor( options = {}, context = null, debug = null ) {}
   extendConfig : null|Object
   extendStates : null|Object
+  configOptions : Boolean
   registerEvents : null|Array
   extendDefaultConfig( extend, context ) {} // void
   extendAvailableStates( states, context ) {} // void
+  applyConfig( config, context ) {} // void
   initComponent( context ) {} // void
 }
 ```
