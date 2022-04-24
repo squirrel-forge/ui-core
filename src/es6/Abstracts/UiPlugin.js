@@ -41,6 +41,14 @@ export class UiPlugin extends Plugin {
     registerEvents = null;
 
     /**
+     * Apply scoped config
+     * @public
+     * @property
+     * @type {boolean}
+     */
+    configOptions = true;
+
+    /**
      * Component init state
      * @private
      * @property
@@ -102,6 +110,27 @@ export class UiPlugin extends Plugin {
                 throw new UiPluginException( 'States extension is empty' );
             }
             states.extend( this.extendStates );
+        }
+    }
+
+    /**
+     * Apply plugin scoped config to component
+     * @param {Config|Object} config - Context config object
+     * @param {UiComponent|Object} context - Plugin context
+     */
+    applyConfig( config, context ) {
+        this._context_check( context );
+
+        // Apply scoped config
+        if ( this.configOptions ) {
+            if ( isPojo( this.options ) ) {
+                const scope = this.constructor.pluginName || this.constructor.name;
+                const scoped = {};
+                scoped[ scope ] = this.options;
+                config.merge( scoped );
+            } else if ( this.debug ) {
+                this.debug.error( this.constructor.name + '::applyConfig Invalid options type:', typeof this.options );
+            }
         }
     }
 
