@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.9
+ - Update documentation.
+ - Update dependencies.
+
 ## 0.8.8
  - Fixed *UiComponent.constructor* *Plugins.applyConfig* call.
 

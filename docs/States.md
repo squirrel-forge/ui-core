@@ -1,9 +1,9 @@
 ### @squirrel-forge/ui-core
-> [Back to table of contents](../README.md)
+> [Back to table of contents](../README.md#table-of-contents)
 
 # Documentation
 ### Javascript / States
-> [Abstracts](Abstracts.md) <[ States ]> [Table of contents](../README.md)
+> [Abstracts](Abstracts.md) <[ States ]> [Table of contents](../README.md#table-of-contents)
 
 ## Table of contents
  - [ComponentStates](#ComponentStates)
@@ -29,7 +29,7 @@ class ComponentStates {
   unset( name ) {} // void
 }
 ```
-For more details check the [ComponentStates source file](../../src/es6/States/ComponentStates.js).
+For more details check the [ComponentStates source file](../src/es6/States/ComponentStates.js).
 
 ---
 
@@ -49,8 +49,8 @@ class ElementClassStates {
   unset( name, element ) {} // void
 }
 ```
-For more details check the [ElementClassStates source file](../../src/es6/States/ElementClassStates.js).
+For more details check the [ElementClassStates source file](../src/es6/States/ElementClassStates.js).
 
 ---
 
-> [Abstracts](Abstracts.md) <[ States ]> [Table of contents](../README.md)
+> [Abstracts](Abstracts.md) <[ States ]> [Table of contents](../README.md#table-of-contents)

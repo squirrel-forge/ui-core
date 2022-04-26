@@ -27,6 +27,57 @@ class UiComponentException extends Exception {}
 export class UiComponent extends EventDispatcher {
 
     /**
+     * Convert attribute value to config value
+     * @public
+     * @param {null|string} value - Attribute value
+     * @return {*} - Converted value
+     */
+    static configValueFromAttr( value ) {
+        if ( typeof value === 'string' ) {
+            if ( value.length ) {
+                if ( value.toLowerCase() === 'true' ) {
+                    value = true;
+                } else if ( value.toLowerCase() === 'false' ) {
+                    value = false;
+                } else if ( value[ 0 ] === '[' || value[ 0 ] === '{' ) {
+                    try {
+                        value = JSON.parse( value );
+                    } catch ( error ) {
+                        return value;
+                    }
+                }
+            } else {
+                value = true;
+            }
+        }
+        return value;
+    }
+
+    /**
+     * Convert attribute name to config dot path
+     * @public
+     * @param {string} name - Attribute name
+     * @return {string} - Config name
+     */
+    static configDotNameFromAttr( name ) {
+        name = name.replace( /-/g, '.' );
+        if ( name.substr( 0, 5 ) === 'data.' ) {
+            name = name.substr( 5 );
+        }
+        return name;
+    }
+
+    /**
+     * Convert config dot path to camel case
+     * @public
+     * @param {string} name - Dot path
+     * @return {string} - Camel case
+     */
+    static configCamelNameFromDot( name ) {
+        return name.toLowerCase().replace( /\.(.)/g, ( m, g ) => { return g.toUpperCase(); } );
+    }
+
+    /**
      * Dom reference
      * @private
      * @property
@@ -157,7 +208,7 @@ export class UiComponent extends EventDispatcher {
 
     /**
      * Mark as ui component
-     * @protected
+     * @private
      * @return {void}
      */
     #markAsUi() {
@@ -166,6 +217,7 @@ export class UiComponent extends EventDispatcher {
 
     /**
      * Initialize component
+     * @public
      * @return {void}
      */
     init() {
@@ -176,56 +228,6 @@ export class UiComponent extends EventDispatcher {
         window.setTimeout( () => {
             this.dispatchEvent( 'initialized' );
         }, 1 );
-    }
-
-    /**
-     * Convert attribute name to config dot path
-     * @public
-     * @param {string} name - Attribute name
-     * @return {string} - Config name
-     */
-    static configDotNameFromAttr( name ) {
-        name = name.replace( /-/g, '.' );
-        if ( name.substr( 0, 5 ) === 'data.' ) {
-            name = name.substr( 5 );
-        }
-        return name;
-    }
-
-    /**
-     * Convert config dot path to camel case
-     * @param {string} name - Dot path
-     * @return {string} - Camel case
-     */
-    static configCamelNameFromDot( name ) {
-        return name.toLowerCase().replace( /\.(.)/g, ( m, g ) => { return g.toUpperCase(); } );
-    }
-
-    /**
-     * Convert attribute value to config value
-     * @public
-     * @param {null|string} value - Attribute value
-     * @return {*} - Converted value
-     */
-    static configValueFromAttr( value ) {
-        if ( typeof value === 'string' ) {
-            if ( value.length ) {
-                if ( value.toLowerCase() === 'true' ) {
-                    value = true;
-                } else if ( value.toLowerCase() === 'false' ) {
-                    value = false;
-                } else if ( value[ 0 ] === '[' || value[ 0 ] === '{' ) {
-                    try {
-                        value = JSON.parse( value );
-                    } catch ( error ) {
-                        return value;
-                    }
-                }
-            } else {
-                value = true;
-            }
-        }
-        return value;
     }
 
     /**
@@ -285,6 +287,7 @@ export class UiComponent extends EventDispatcher {
 
     /**
      * Set state from event
+     * @public
      * @param {Event} event - Event object
      * @return {void}
      */

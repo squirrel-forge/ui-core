@@ -14,7 +14,18 @@ import { Class, function } from '@squirrel-forge/ui-core';
 ```
 
 ## Documentation
-Here you can find the [Documentation](https://github.com/squirrel-forge/ui-core/tree/main/docs), it is also included in the package and can be found in the docs folder.
+The documentation is also included in the package.
+
+## Table of contents
+Package contents listing by language and namespace.
+
+ - Javascript
+   - [Abstracts](docs/Abstracts.md)
+     - [UiComponent](docs/Abstracts.md#UiComponent)
+     - [UiPlugin](docs/Abstracts.md#UiPlugin)
+   - [States](docs/States.md)
+     - [ComponentStates](docs/States.md#ComponentStates)
+     - [ElementClassStates](docs/States.md#ElementClassStates)
 
 ## Issues and docs
 If you encounter any issues, please report [here](https://github.com/squirrel-forge/ui-core/issues).

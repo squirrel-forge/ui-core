@@ -158,6 +158,7 @@ export class ElementClassStates {
 
     /**
      * Clear auto unset timeout
+     * @private
      * @param {string} id - Element id
      * @return {void}
      */

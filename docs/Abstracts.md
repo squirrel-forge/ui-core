@@ -1,9 +1,9 @@
 ### @squirrel-forge/ui-core
-> [Back to table of contents](../README.md)
+> [Back to table of contents](../README.md#table-of-contents)
 
 # Documentation
 ### Javascript / Abstracts
-> [Table of contents](../README.md) <[ Abstracts ]> [States](States.md)
+> [Table of contents](../README.md#table-of-contents) <[ Abstracts ]> [States](States.md)
 
 ## Table of contents
  - [UiComponent](#UiComponent)
@@ -32,7 +32,7 @@ class UiComponent extends EventDispatcher {
   event_state( event ) {} // void
 }
 ```
-For more details check the [UiComponent source file](../../src/es6/Abstracts/UiComponent.js).
+For more details check the [UiComponent source file](../src/es6/Abstracts/UiComponent.js).
 
 #### Settings mechanics
 Settings may be passed via the constructor, but can also be set via a *data-config* attribute:
@@ -64,8 +64,8 @@ class UiPlugin extends Plugin {
   initComponent( context ) {} // void
 }
 ```
-For more details check the [UiPlugin source file](../../src/es6/Abstracts/UiPlugin.js).
+For more details check the [UiPlugin source file](../src/es6/Abstracts/UiPlugin.js).
 
 ---
 
-> [Table of contents](../README.md) <[ Abstracts ]> [States](States.md)
+> [Table of contents](../README.md#table-of-contents) <[ Abstracts ]> [States](States.md)
