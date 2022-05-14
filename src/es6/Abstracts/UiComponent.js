@@ -13,6 +13,9 @@ import {
     isPojo
 } from '@squirrel-forge/ui-util';
 
+// Import for local dev
+// } from '../../../../ui-util';
+
 /**
  * Ui component exception
  * @class
@@ -78,6 +81,77 @@ export class UiComponent extends EventDispatcher {
     }
 
     /**
+     * Make ui component
+     * @param {HTMLElement} element - Element
+     * @param {null|Object} settings - Config object
+     * @param {null|Array} plugins - Plugins array
+     * @param {null|EventDispatcher|HTMLElement} parent - Parent object
+     * @param {null|false|console|Object} debug - Debug object
+     * @param {Function} Construct - Component constructor
+     * @return {UiComponent} - Component object
+     */
+    static make(
+        element,
+        settings = null,
+        plugins = null,
+        parent = null,
+        debug = null,
+        Construct = null
+    ) {
+        if ( !( element instanceof HTMLElement ) ) {
+            throw new UiComponentException( 'Argument element must be a HTMLElement' );
+        }
+        Construct = Construct || this;
+        if ( debug === null ) {
+            const value = element.getAttribute( 'debug' ) || element.getAttribute( 'data-debug' );
+            if ( Construct.configValueFromAttr( value ) === true ) {
+                debug = console;
+            }
+        } else if ( debug === true ) {
+            debug = console;
+        }
+        if ( debug ) window.console.warn( 'UiComponent.make', this.name, { element, settings, plugins, parent, debug, Construct } );
+        return new Construct( element, settings, null, null, null, plugins, parent, debug, true );
+    }
+
+    /**
+     * Initialize all ui elements in context
+     * @param {null|Object} settings - Config object
+     * @param {null|Array} plugins - Plugins array
+     * @param {null|EventDispatcher|HTMLElement} parent - Parent object
+     * @param {document|HTMLElement} context - Context to initialize
+     * @param {null|console|Object} debug - Debug object
+     * @param {Function} Construct - Component constructor
+     * @return {Array<UiComponent>} - Initialized components
+     */
+    static makeAll(
+        settings = null,
+        plugins = null,
+        parent = null,
+        context = document,
+        debug = null,
+        Construct = null
+    ) {
+        Construct = Construct || this;
+        if ( debug ) window.console.warn( 'UiComponent.makeAll', this.name, { settings, plugins, parent,  context, debug, Construct } );
+        const result = [];
+        const elements = context.querySelectorAll( Construct.selector );
+        for ( let i = 0; i < elements.length; i++ ) {
+            result.push( Construct.make( elements[ i ], settings, plugins, parent, debug, Construct ) );
+        }
+        return result;
+    }
+
+    /**
+     * Element selector getter
+     * @public
+     * @return {string} - Element selector
+     */
+    static get selector() {
+        return '[is="ui-component"]:not([data-state])';
+    }
+
+    /**
      * Dom reference
      * @private
      * @property
@@ -110,6 +184,30 @@ export class UiComponent extends EventDispatcher {
     #plugins = null;
 
     /**
+     * Initialized
+     * @private
+     * @property
+     * @type {boolean}
+     */
+    #initialized = false;
+
+    /**
+     * Component children
+     * @private
+     * @property
+     * @type {Array}
+     */
+    #children = [];
+
+    /**
+     * Children initialized
+     * @private
+     * @property
+     * @type {boolean}
+     */
+    #children_initialized = false;
+
+    /**
      * Constructor
      * @constructor
      * @param {HTMLElement} element - Dom element
@@ -118,11 +216,25 @@ export class UiComponent extends EventDispatcher {
      * @param {Array<Object>} extend - Config defaults extension for inheritance
      * @param {Object} states - States definition
      * @param {Array<Function|Array<Function,*>>} plugins - Plugins to load
-     * @param {boolean} init - Run init method
+     * @param {null|EventDispatcher|HTMLElement} parent - Parent object
      * @param {null|console|Object} debug - Debug object
+     * @param {boolean} init - Run init method
      */
-    constructor( element, settings = null, defaults = {}, extend = [], states = {}, plugins = [], init = true, debug = null ) {
-        super( element, null, debug );
+    constructor(
+        element,
+        settings = null,
+        defaults = null,
+        extend = null,
+        states = null,
+        plugins = null,
+        parent = null,
+        debug = null,
+        init = true
+    ) {
+        super( element, parent, debug );
+        if ( debug ) window.console.warn( 'UiComponent.constructor >', this.constructor.name, {
+            element, settings, defaults, extend, states, plugins, parent, debug, init
+        } );
         if ( !( element instanceof HTMLElement ) ) throw new UiComponentException( 'Argument element must be a HTMLElement' );
         this.#dom = element;
 
@@ -131,11 +243,12 @@ export class UiComponent extends EventDispatcher {
         this.#markAsUi();
 
         // Initialize plugins and extend defaults
-        this.#plugins = new Plugins( plugins, this, true, debug );
-        this.#plugins.run( 'extendDefaultConfig', [ extend ] );
+        extend = extend || [];
+        this.#plugins = plugins ? new Plugins( plugins, this, true, debug ) : null;
+        this.#plugins?.run( 'extendDefaultConfig', [ extend ] );
 
         // Create component config
-        this.#config = new Config( defaults, extend );
+        this.#config = new Config( defaults || {}, extend );
 
         // Set config options from attributes
         this.#setConfigFromAttributes();
@@ -144,17 +257,26 @@ export class UiComponent extends EventDispatcher {
         this.#loadElementConfig();
 
         // Apply any plugin scoped configs
-        this.#plugins.run( 'applyConfig', [ this.config ] );
+        this.#plugins?.run( 'applyConfig', [ this.config ] );
 
         // Apply settings explicitly provided by constructor arguments
         if ( isPojo( settings ) ) this.config.merge( settings );
 
         // Create states handler and extend with any plugin states
-        this.#states = new ComponentStates( this, states );
-        this.#plugins.run( 'extendAvailableStates', [ this.#states ] );
+        this.#states = new ComponentStates( this, states || {} );
+        this.#plugins?.run( 'extendAvailableStates', [ this.#states ] );
 
         // Initialize component
         if ( init ) this.init();
+    }
+
+    /**
+     * Type getter
+     * @public
+     * @return {string} - Component type
+     */
+    get type() {
+        return this.constructor.name;
     }
 
     /**
@@ -194,6 +316,15 @@ export class UiComponent extends EventDispatcher {
     }
 
     /**
+     * Children getter
+     * @public
+     * @return {Array} - Component children
+     */
+    get children() {
+        return [ ...this.#children ];
+    }
+
+    /**
      * Load and merge element config
      * @private
      * @return {void}
@@ -221,13 +352,88 @@ export class UiComponent extends EventDispatcher {
      * @return {void}
      */
     init() {
-        this.#plugins.run( 'initComponent' );
+        if ( this.#initialized ) {
+            throw new UiComponentException( 'Component already initialized' );
+        }
+        this.#initialized = true;
+        this.#plugins?.run( 'initComponent' );
         this.#states.set( 'initialized' );
 
-        // Delay the init dispatch for object availability reasons
+        // Delay the init dispatch and children for object availability reasons
         window.setTimeout( () => {
             this.dispatchEvent( 'initialized' );
         }, 1 );
+    }
+
+    /**
+     * Initialize child components
+     * @protected
+     * @return {void}
+     */
+    _initChildren() {
+        if ( this.#children_initialized ) {
+            throw new UiComponentException( 'Component children already initialized' );
+        }
+        this.#children_initialized = true;
+        const options = this.#config.get( 'children' );
+        if ( options && isPojo( options ) ) {
+            const types = Object.entries( options );
+            if ( types.length && this.debug ) this.debug.group( this.constructor.name + '::_initChildren', types );
+            for ( let i = 0; i < types.length; i++ ) {
+
+                // Build arguments
+                const [ name, Construct ] = types[ i ];
+                const params = Construct instanceof Array ? Construct : [ Construct ];
+
+                // Attempt to initialize each type
+                try {
+                    this.#children = this.#children.concat( this.#initChildType( ...params ) );
+                } catch ( e ) {
+                    throw new UiComponentException( 'Failed to initialize child type: ' + name, e );
+                }
+            }
+            if ( types.length && this.debug ) this.debug.groupEnd();
+            this.dispatchEvent( 'children.initialized' );
+        }
+    }
+
+    /**
+     * Initialize children by type
+     * @private
+     * @param {Function|UiComponent} Construct - Component constructor
+     * @param {null|Object} settings - Config object
+     * @param {Array} plugins - Plugins
+     * @return {Array<UiComponent>} - Initialized components
+     */
+    #initChildType( Construct, settings = null, plugins = null ) {
+        if ( typeof Construct !== 'function' ) {
+            throw new UiComponentException( 'Argument Construct must be a Function' );
+        }
+        return Construct.makeAll( settings, plugins, this, this.#dom, this.debug, Construct );
+    }
+
+    /**
+     * Cycle children
+     * @param {string|Array|Function} filter - Filter or callback function
+     * @param {null|Function} callback - Callback when using a filter
+     * @return {void}
+     */
+    eachChild( filter, callback = null ) {
+        if ( typeof filter === 'function' ) {
+            callback = filter;
+            filter = null;
+        } else if ( typeof callback !== 'function' ) {
+            throw new UiComponentException( 'Argument callback must be a Function' );
+        }
+        let x = 0;
+        for ( let i = 0; i < this.#children.length; i++ ) {
+            const child = this.#children[ i ];
+            if ( !filter || filter === child.type || filter instanceof Array && filter.includes( child.type ) ) {
+                const br = callback( child, x, i );
+                if ( br === true ) break;
+                x++;
+            }
+        }
     }
 
     /**
