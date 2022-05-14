@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.0
+ - Changed *UiComponent* constructor arguments.
+ - Added *UiComponent.make()* and *UiComponent.makeAll()* abstract factories.
+ - Added *UiComponent.children* property and *UiComponent.eachChild()* method.
+ - Optionalized *UiComponent.plugins* construction and method calls.
+ - Locked *UiComponent* init methods to private states.
+
 ## 0.8.9
  - Update documentation.
  - Update dependencies.
