@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.10.0
+ - Updated dependencies.
+
 ## 0.9.0
  - Changed *UiComponent* constructor arguments.
  - Added *UiComponent.make()* and *UiComponent.makeAll()* abstract factories.
