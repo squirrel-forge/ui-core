@@ -485,7 +485,7 @@ export class UiComponent extends EventDispatcher {
     getDomRefs( name, multiple = true ) {
         const ref = this.config.get( 'dom.' + name );
         if ( !name || !name.length || !ref ) {
-            return null;
+            return multiple ? [] : null;
         }
         const method = 'querySelector' + ( multiple ? 'All' : '' );
         return this.#dom[ method ]( ref );
