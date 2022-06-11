@@ -16,7 +16,6 @@ ComponentStates class - Ui component global and additional states handler.
 
 #### Class overview
 ```javascript
-// Component event names: state.set, state.changed, state.unset
 class ComponentStates {
   constructor( component, states = null ) {}
   global : null|String
@@ -30,6 +29,12 @@ class ComponentStates {
 }
 ```
 For more details check the [ComponentStates source file](../src/es6/States/ComponentStates.js).
+
+#### Events
+Note: *All events are dispatched on the component reference*.
+ - **state.set** - Fired when a non global state is set.
+ - **state.changed** - Fired when the global state changed.
+ - **state.unset** - Fired when a global or non global state is unset.
 
 ---
 

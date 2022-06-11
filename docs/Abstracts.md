@@ -13,10 +13,10 @@
 
 ### UiComponent
 UiComponent class - Base abstract for ui components with some useful methods.
+The component extends [EventDispatcher](https://github.com/squirrel-forge/ui-util/blob/main/docs/Events.md#EventDispatcher) from [@squirrel-forge/ui-util](https://github.com/squirrel-forge/ui-util) module.
 
 #### Class overview
 ```javascript
-// Event names: initialized
 class UiComponent extends EventDispatcher {
   static make( element, settings = null, plugins = null, parent = null, debug = null, Construct = null ) {} // UiComponent
   static makeAll( settings = null, plugins = null, parent = null, context = document, debug = null, Construct = null ) {} // UiComponent[]
@@ -41,6 +41,9 @@ class UiComponent extends EventDispatcher {
 ```
 For more details check the [UiComponent source file](../src/es6/Abstracts/UiComponent.js).
 
+#### Events
+ - **initialized** - Fired after the component has initialized, note: *currently child components might not be fully initialized at this time*.
+
 #### Settings mechanics
 Settings may be passed via the constructor, but can also be set via a *data-config* attribute:
 ```html
@@ -50,12 +53,18 @@ or via named attributes:
 ```html
 <component data-name="value"></component>
 ```
-The data- is removed and dashes replaced with dots when converting to a config option.
+The data- is removed when converting to a config option, two names are generated, dashes replaced with dots and a lowerCamelCase version, see following examples.
+```
+data-name > "name"
+data-some-name > "some.name" and "someName"
+```
+In most cases options are only set if they exist, preventing collisions when extending the *UiComponent* class is required when defining option names, but the convention does not cause any further issues.
 
 ---
 
 ### UiPlugin
 UiPlugin class - Plugin extension with some ui and dom based methods.
+The component extends [Plugin](https://github.com/squirrel-forge/ui-util/blob/main/docs/Logic.md#Plugin) from [@squirrel-forge/ui-util](https://github.com/squirrel-forge/ui-util) module.
 
 #### Class overview
 ```javascript
