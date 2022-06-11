@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.1
+ - Improved documentation, code and readme.
+ - Fixed *UiComponent.getDomRefs()* empty multiple return changed from null to array.
+
 ## 0.10.0
  - Updated dependencies.
 
