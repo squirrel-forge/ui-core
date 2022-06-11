@@ -19,6 +19,7 @@ import {
 /**
  * Ui component exception
  * @class
+ * @extends Exception
  */
 class UiComponentException extends Exception {}
 
@@ -26,6 +27,7 @@ class UiComponentException extends Exception {}
  * Ui component
  * @abstract
  * @class
+ * @extends EventDispatcher
  */
 export class UiComponent extends EventDispatcher {
 

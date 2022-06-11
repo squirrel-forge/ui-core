@@ -13,6 +13,7 @@ import {
 /**
  * UiPlugin exception
  * @class
+ * @extends Exception
  */
 class UiPluginException extends Exception {}
 
@@ -20,6 +21,7 @@ class UiPluginException extends Exception {}
  * UiPlugin class
  * @abstract
  * @class
+ * @extends Plugin
  */
 export class UiPlugin extends Plugin {
 

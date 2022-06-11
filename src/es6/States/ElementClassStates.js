@@ -14,6 +14,7 @@ import {
 /**
  * Element class states exception
  * @class
+ * @extends Exception
  */
 class ElementClassStatesException extends Exception {}
 

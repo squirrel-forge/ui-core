@@ -13,6 +13,7 @@ import {
 /**
  * Component states exception
  * @class
+ * @extends Exception
  */
 class ComponentStatesException extends Exception {}
 
