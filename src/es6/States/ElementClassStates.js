@@ -1,15 +1,7 @@
 /**
  * Requires
  */
-import {
-    Exception,
-    isPojo,
-    mergeObject,
-    requireUniqid
-} from '@squirrel-forge/ui-util';
-
-// Import for local dev
-// } from '../../../../ui-util';
+import { Exception, isPojo, mergeObject, requireUniqid } from '@squirrel-forge/ui-util';
 
 /**
  * Element class states exception

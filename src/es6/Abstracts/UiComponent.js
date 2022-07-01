@@ -2,19 +2,7 @@
  * Requires
  */
 import { ComponentStates } from '../States/ComponentStates.js';
-import {
-    Exception,
-    EventDispatcher,
-    Config,
-    Plugins,
-    attributeJSON,
-    requireUniqid,
-    strCreate,
-    isPojo
-} from '@squirrel-forge/ui-util';
-
-// Import for local dev
-// } from '../../../../ui-util';
+import { Exception, EventDispatcher, Config, Plugins, attributeJSON, requireUniqid, strCreate, isPojo } from '@squirrel-forge/ui-util';
 
 /**
  * Ui component exception

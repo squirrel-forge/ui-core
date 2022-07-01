@@ -1,14 +1,7 @@
 /**
  * Requires
  */
-import {
-    Exception,
-    Plugin,
-    isPojo
-} from '@squirrel-forge/ui-util';
-
-// Import for local dev
-// } from '../../../../ui-util';
+import { Exception, Plugin, isPojo } from '@squirrel-forge/ui-util';
 
 /**
  * UiPlugin exception

@@ -1,14 +1,7 @@
 /**
  * Requires
  */
-import {
-    Exception,
-    isPojo,
-    mergeObject
-} from '@squirrel-forge/ui-util';
-
-// Import for local dev
-// } from '../../../../ui-util';
+import { Exception, isPojo, mergeObject } from '@squirrel-forge/ui-util';
 
 /**
  * Component states exception
