@@ -31,11 +31,12 @@ class UiComponent extends EventDispatcher {
   states : ComponentStates
   plugins : Plugins
   children : Array
-  init() {} // void
+  init( afterInitialized = null ) {} // void
   _initChildren() {} // void
   eachChild( filter, callback = null ) {} // void
   getConfigFromAttributes() {} // null|Object
   getDomRefs( name, multiple = true ) {} // null|HTMLElement|NodeList
+  requireDomRefs( refs ) {} // void
   event_state( event ) {} // void
 }
 ```
