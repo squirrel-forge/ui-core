@@ -339,9 +339,10 @@ export class UiComponent extends EventDispatcher {
     /**
      * Initialize component
      * @public
+     * @param {null|Function} afterInitialized - Run function after initialized event
      * @return {void}
      */
-    init() {
+    init( afterInitialized = null ) {
         if ( this.#initialized ) {
             throw new UiComponentException( 'Component already initialized' );
         }
@@ -352,6 +353,7 @@ export class UiComponent extends EventDispatcher {
         // Delay the init dispatch and children for object availability reasons
         window.setTimeout( () => {
             this.dispatchEvent( 'initialized' );
+            if ( afterInitialized ) afterInitialized( this );
         }, 1 );
     }
 
@@ -479,6 +481,22 @@ export class UiComponent extends EventDispatcher {
         }
         const method = 'querySelector' + ( multiple ? 'All' : '' );
         return this.#dom[ method ]( ref );
+    }
+
+    /**
+     * Require dom references
+     * @public
+     * @param {Array<Array<string,boolean>>} refs - Reference requirements
+     * @return {void}
+     */
+    requireDomRefs( refs ) {
+        for ( let i = 0; i < refs.length; i++ ) {
+            const [ name, multiple ] = refs[ i ];
+            const ref = this.getDomRefs( name, multiple );
+            if ( !ref || multiple && !ref.length ) {
+                throw new UiComponentException( 'Component requires a dom reference for: ' + name );
+            }
+        }
     }
 
     /**
