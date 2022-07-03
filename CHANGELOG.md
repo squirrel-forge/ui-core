@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.3
+ - Allow function call after *UiComponent* *initialized* event.
+ - Added *requireDomRefs* method to *UiComponent* to ensure dom reference availability and throw errors.
+
 ## 0.10.2
  - Cleaned import statements.
  - Remove dev dependencies.
