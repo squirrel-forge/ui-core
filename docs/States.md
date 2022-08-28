@@ -6,8 +6,8 @@
 > [Abstracts](Abstracts.md) <[ States ]> [Table of contents](../README.md#table-of-contents)
 
 ## Table of contents
- - [ComponentStates](#ComponentStates)
- - [ElementClassStates](#ElementClassStates)
+ - [ComponentStates](#componentstates)
+ - [ElementClassStates](#elementclassstates)
 
 ---
 

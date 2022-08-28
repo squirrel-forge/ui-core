@@ -6,14 +6,14 @@
 > [Table of contents](../README.md#table-of-contents) <[ Abstracts ]> [States](States.md)
 
 ## Table of contents
- - [UiComponent](#UiComponent)
- - [UiPlugin](#UiPlugin)
+ - [UiComponent](#uicomponent)
+ - [UiPlugin](#uiplugin)
 
 ---
 
 ### UiComponent
 UiComponent class - Base abstract for ui components with some useful methods.
-The component extends [EventDispatcher](https://github.com/squirrel-forge/ui-util/blob/main/docs/Events.md#EventDispatcher) from [@squirrel-forge/ui-util](https://github.com/squirrel-forge/ui-util) module.
+The component extends [EventDispatcher](https://github.com/squirrel-forge/ui-util/blob/main/docs/Events.md#eventdispatcher) from [@squirrel-forge/ui-util](https://github.com/squirrel-forge/ui-util) module.
 
 #### Class overview
 ```javascript

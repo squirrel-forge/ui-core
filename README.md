@@ -21,11 +21,11 @@ Package contents listing by language and namespace.
 
  - Javascript
    - [Abstracts](docs/Abstracts.md)
-     - [UiComponent](docs/Abstracts.md#UiComponent)
-     - [UiPlugin](docs/Abstracts.md#UiPlugin)
+     - [UiComponent](docs/Abstracts.md#uicomponent)
+     - [UiPlugin](docs/Abstracts.md#uiplugin)
    - [States](docs/States.md)
-     - [ComponentStates](docs/States.md#ComponentStates)
-     - [ElementClassStates](docs/States.md#ElementClassStates)
+     - [ComponentStates](docs/States.md#componentstates)
+     - [ElementClassStates](docs/States.md#elementclassstates)
 
 ## Issues and docs
 If you encounter any issues, please report [here](https://github.com/squirrel-forge/ui-core/issues).
