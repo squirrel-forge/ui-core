@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.10.4
+ - Added *integer* and *float* parsing to *UiComponent.configValueFromAttr()* via basic regex.
+
 ## 0.10.3
  - Allow function call after *UiComponent* *initialized* event.
  - Added *requireDomRefs* method to *UiComponent* to ensure dom reference availability and throw errors.
