@@ -32,6 +32,10 @@ export class UiComponent extends EventDispatcher {
                     value = true;
                 } else if ( value.toLowerCase() === 'false' ) {
                     value = false;
+                } else if ( /^[0-9]+$/.test( value ) ) {
+                    value = parseInt( value );
+                } else if ( /^[0-9]*\.[0-9]+$/.test( value ) ) {
+                    value = parseFloat( value );
                 } else if ( value[ 0 ] === '[' || value[ 0 ] === '{' ) {
                     try {
                         value = JSON.parse( value );
