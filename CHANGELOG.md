@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.11.0
+ - Added *UiTemplate* class for rendering template data.
+ - Minor debug improvement for the static *UiComponent.make()* and *UiComponent.makeAll()* methods.
+ - Improved code docs and added inherited methods and properties.
+
 ## 0.10.4
  - Added *integer* and *float* parsing to *UiComponent.configValueFromAttr()* via basic regex.
 
