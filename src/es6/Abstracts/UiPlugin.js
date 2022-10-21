@@ -161,4 +161,41 @@ export class UiPlugin extends Plugin {
             context.addEventList( this.registerEvents );
         }
     }
+
+    // Inherited from: Plugin
+
+    /**
+     * Plugin options
+     * @name UiPlugin#options
+     * @property
+     * @public
+     * @type {Object}
+     */
+
+    /**
+     * Debug reference
+     * @name UiPlugin#debug
+     * @property
+     * @readonly
+     * @public
+     * @type {null|console|Object}
+     */
+
+    /**
+     * Parent reference
+     * @name UiPlugin#context
+     * @property
+     * @readonly
+     * @public
+     * @return {null|Object}
+     */
+
+    /**
+     * Check context
+     * @name UiPlugin#_context_check
+     * @method
+     * @protected
+     * @param {Object} context - Plugin context
+     * @return {void}
+     */
 }
