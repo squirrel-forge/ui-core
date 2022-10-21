@@ -1,6 +1,6 @@
 /* !
  * @module      : @squirrel-forge/ui-core
- * @version     : 0.10.4
+ * @version     : 0.11.0
  * @license     : MIT
  * @copyright   : 2022 squirrel-forge
  * @author      : Daniel Hartwell aka. siux <me@siux.info>
@@ -12,6 +12,7 @@
  */
 export { UiComponent } from './Abstracts/UiComponent.js';
 export { UiPlugin } from './Abstracts/UiPlugin.js';
+export { UiTemplate } from './Abstracts/UiTemplate';
 
 /**
  * States
