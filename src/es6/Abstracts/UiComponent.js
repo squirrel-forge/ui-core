@@ -104,7 +104,7 @@ export class UiComponent extends EventDispatcher {
         } else if ( debug === true ) {
             debug = console;
         }
-        if ( debug ) window.console.warn( 'UiComponent.make', this.name, { element, settings, plugins, parent, debug, Construct } );
+        if ( debug ) window.console.warn( 'UiComponent.make', Construct.name, { element, settings, plugins, parent, debug, Construct } );
         return new Construct( element, settings, null, null, null, plugins, parent, debug, true );
     }
 
@@ -127,7 +127,7 @@ export class UiComponent extends EventDispatcher {
         Construct = null
     ) {
         Construct = Construct || this;
-        if ( debug ) window.console.warn( 'UiComponent.makeAll', this.name, { settings, plugins, parent,  context, debug, Construct } );
+        if ( debug ) window.console.warn( 'UiComponent.makeAll', Construct.name, { settings, plugins, parent, context, debug, Construct } );
         const result = [];
         const elements = context.querySelectorAll( Construct.selector );
         for ( let i = 0; i < elements.length; i++ ) {
@@ -410,6 +410,7 @@ export class UiComponent extends EventDispatcher {
 
     /**
      * Cycle children
+     * @public
      * @param {string|Array|Function} filter - Filter or callback function
      * @param {null|Function} callback - Callback when using a filter
      * @return {void}
@@ -515,4 +516,104 @@ export class UiComponent extends EventDispatcher {
         }
         this.states.set( event.type );
     }
+
+    // Inherited from: EventDispatcher
+
+    /**
+     * Check for compatibility
+     * @name UiComponent.isCompat
+     * @method
+     * @static
+     * @public
+     * @param {*} obj - EventDispatcher target or parent
+     * @return {boolean} - Is compatible
+     */
+
+    /**
+     * Debug reference
+     * @name UiComponent#debug
+     * @property
+     * @readonly
+     * @public
+     * @type {null|console|Object}
+     */
+
+    /**
+     * Target reference
+     * @name UiComponent#target
+     * @property
+     * @readonly
+     * @public
+     * @type {null|HTMLElement|EventDispatcher|EventDispatcherInterface}
+     */
+
+    /**
+     * Parent reference
+     * @name UiComponent#parent
+     * @property
+     * @readonly
+     * @public
+     * @type {null|HTMLElement|EventDispatcher|EventDispatcherInterface}
+     */
+
+    /**
+     * True if no target element is set
+     * @name UiComponent#isSimulated
+     * @property
+     * @readonly
+     * @public
+     * @type {boolean}
+     */
+
+    /**
+     * Dispatch event
+     * @name UiComponent#dispatchEvent
+     * @method
+     * @public
+     * @param {string} name - Event name
+     * @param {null|object} detail - Event data
+     * @param {boolean} bubbles - Allow event to bubble
+     * @param {boolean} cancelable - Allow event to be cancelled
+     * @return {boolean} - False if cancelled, true otherwise
+     */
+
+    /**
+     * Check name for existing handlers
+     * @name UiComponent#hasSimulated
+     * @method
+     * @public
+     * @param {string} name - Event name
+     * @return {boolean} - True if event has listeners
+     */
+
+    /**
+     * Register event listener
+     * @name UiComponent#addEventListener
+     * @method
+     * @public
+     * @param {string} name - Event name
+     * @param {Function} callback - Callback to register for event
+     * @param {boolean|Object} useCaptureOptions - Capture style or options Object
+     * @return {void}
+     */
+
+    /**
+     * Remove event listener
+     * @name UiComponent#removeEventListener
+     * @method
+     * @public
+     * @param {string} name - Event name
+     * @param {function} callback - Callback to deregister from event
+     * @param {boolean|Object} useCaptureOptions - Capture style or options Object
+     * @return {void}
+     */
+
+    /**
+     * Register an array of event listeners
+     * @name UiComponent#addEventList
+     * @method
+     * @public
+     * @param {Array<Array>} events - Array of addEventListener argument arrays
+     * @return {void}
+     */
 }
