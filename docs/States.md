@@ -28,7 +28,7 @@ class ComponentStates {
   unset( name ) {} // void
 }
 ```
-For more details check the [ComponentStates source file](../src/es6/States/ComponentStates.js).
+For more details check the [ComponentStates source file](../src/js/States/ComponentStates.js).
 
 #### Events
 Note: *All events are dispatched on the component reference*.
@@ -54,7 +54,7 @@ class ElementClassStates {
   unset( name, element ) {} // void
 }
 ```
-For more details check the [ElementClassStates source file](../src/es6/States/ElementClassStates.js).
+For more details check the [ElementClassStates source file](../src/js/States/ElementClassStates.js).
 
 ---
 

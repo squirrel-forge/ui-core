@@ -40,7 +40,7 @@ class UiComponent extends EventDispatcher {
   event_state( event ) {} // void
 }
 ```
-For more details check the [UiComponent source file](../src/es6/Abstracts/UiComponent.js).
+For more details check the [UiComponent source file](../src/js/Abstracts/UiComponent.js).
 
 #### Events
  - **initialized** - Fired after the component has initialized, note: *currently child components might not be fully initialized at this time*.
@@ -81,7 +81,7 @@ class UiPlugin extends Plugin {
   initComponent( context ) {} // void
 }
 ```
-For more details check the [UiPlugin source file](../src/es6/Abstracts/UiPlugin.js).
+For more details check the [UiPlugin source file](../src/js/Abstracts/UiPlugin.js).
 
 ---
 
