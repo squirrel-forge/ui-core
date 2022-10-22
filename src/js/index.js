@@ -12,7 +12,7 @@
  */
 export { UiComponent } from './Abstracts/UiComponent.js';
 export { UiPlugin } from './Abstracts/UiPlugin.js';
-export { UiTemplate } from './Abstracts/UiTemplate';
+export { UiTemplate } from './Abstracts/UiTemplate.js';
 
 /**
  * States
