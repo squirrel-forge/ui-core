@@ -65,10 +65,10 @@ export class UiTemplate {
     /**
      * Constructor
      * @constructor
-     * @param {Object} data - Template data
+     * @param {null|Object} data - Template data
      * @param {null|console} debug - Debug object
      */
-    constructor( data, debug ) {
+    constructor( data = null, debug = null ) {
         this.debug = debug;
         if ( data ) this.data = data;
     }
@@ -120,10 +120,10 @@ export class UiTemplate {
     /**
      * Render template
      * @public
-     * @param {Object} data - Template data
+     * @param {null|Object} data - Template data
      * @return {string} - Rendered template
      */
-    render( data ) {
+    render( data = null ) {
         if ( !isPojo( this._defaults ) ) throw new UiTemplateException( 'Invalid template defaults data' );
         if ( data ) this.data = data;
         if ( !isPojo( this.#data ) ) throw new UiTemplateException( 'Invalid template data, must be a plain object' );
@@ -138,10 +138,10 @@ export class UiTemplate {
     /**
      * Render as node
      * @public
-     * @param {Object} data - Template data
+     * @param {null|Object} data - Template data
      * @return {NodeList|Array} - Rendered nodes or empty array
      */
-    asNode( data ) {
+    asNode( data = null ) {
         const rendered = this.render( data );
         if ( rendered ) return str2node( rendered );
         return [];
@@ -151,10 +151,10 @@ export class UiTemplate {
      * Append rendered template
      * @public
      * @param {HTMLElement} to - Element to append to
-     * @param {Object} data - Template data
+     * @param {null|Object} data - Template data
      * @return {void}
      */
-    append( to, data ) {
+    append( to, data = null ) {
         if ( !( to instanceof HTMLElement ) ) throw new UiTemplateException( 'Requires a HTMLElement to append to' );
         const nodes = this.asNode( data );
         for ( let i = 0; i < nodes.length; i++ ) {
