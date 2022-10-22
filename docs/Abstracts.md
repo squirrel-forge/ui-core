@@ -85,4 +85,28 @@ For more details check the [UiPlugin source file](../src/js/Abstracts/UiPlugin.j
 
 ---
 
+### UiTemplate
+UiTemplate class - Template abstract with some basic functionality and interfacing logic.
+
+#### Class overview
+```javascript
+class UiTemplate {
+    static getTemplate( id ) {} // string
+    constructor( data = null, debug = null ) {}
+    debug : null|Object
+    errorMessage : null|string
+    data : null|Object
+    _defaults : null|Object
+    _render( data = null ) {} // string
+    _validate( data = null ) {} // boolean
+    render( data = null ) {} // string
+    asNode( data = null ) {} // NodeList|Array
+    append( to, data = null ) {} // void
+    toString() {} // string
+}
+```
+For more details check the [UiTemplate source file](../src/js/Abstracts/UiTemplate.js).
+
+---
+
 > [Table of contents](../README.md#table-of-contents) <[ Abstracts ]> [States](States.md)
