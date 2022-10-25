@@ -81,7 +81,7 @@ export class UiTemplate {
      * @return {string} - Rendered template
      */
     _render( data ) {
-        if ( this.debug ) this.debug.warn( data );
+        if ( this.debug ) this.debug.warn( this.constructor.name + '::_render', data );
         throw new UiTemplateException( 'Template requires a render method' );
     }
 
@@ -93,7 +93,7 @@ export class UiTemplate {
      * @return {boolean} - True if data can be rendered
      */
     _validate( data ) {
-        if ( this.debug ) this.debug.warn( data );
+        if ( this.debug ) this.debug.warn( this.constructor.name + '::_validate', data );
         throw new UiTemplateException( 'Template requires a validate method' );
     }
 
@@ -132,7 +132,7 @@ export class UiTemplate {
         mergeObject( compiled, this.#data, false, true );
         this._validate( compiled );
         if ( this.debug ) this.debug.log( this.constructor.name + '::render', compiled );
-        this._render( compiled );
+        return this._render( compiled );
     }
 
     /**
@@ -172,7 +172,7 @@ export class UiTemplate {
         try {
             rendered = this.render();
         } catch ( e ) {
-            if ( this.debug ) this.debug.error( e );
+            if ( this.debug ) this.debug.error( this.constructor.name + '::toString', e );
             rendered = this.errorMessage;
         }
         if ( typeof rendered !== 'string' ) {
