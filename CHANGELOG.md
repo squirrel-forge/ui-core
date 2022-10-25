@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.1
+ - Fixed *UiTemplate.render* missing return value.
+ - Improved *UiTemplate* debug output.
+
 ## 0.11.0
  - Added *UiTemplate* class for rendering template data.
  - Minor debug improvement for the static *UiComponent.make()* and *UiComponent.makeAll()* methods.
