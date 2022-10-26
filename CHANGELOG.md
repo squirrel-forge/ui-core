@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.11.2
+ - On *UiComponent* construction allow ```settings.__forceExtend = true``` to extend the config and overwrite types.
+
 ## 0.11.1
  - Fixed *UiTemplate.render* missing return value.
  - Improved *UiTemplate* debug output.
