@@ -253,8 +253,15 @@ export class UiComponent extends EventDispatcher {
         // Apply any plugin scoped configs
         this.#plugins?.run( 'applyConfig', [ this.config ] );
 
+        // Allow for a forced extend of the config
+        let override_extend = false;
+        if ( settings.__forceExtend === true ) {
+            override_extend = true;
+            delete settings.__forceExtend;
+        }
+
         // Apply settings explicitly provided by constructor arguments
-        if ( isPojo( settings ) ) this.config.merge( settings );
+        if ( isPojo( settings ) ) this.config.merge( settings, override_extend );
 
         // Create states handler and extend with any plugin states
         this.#states = new ComponentStates( this, states || {} );
