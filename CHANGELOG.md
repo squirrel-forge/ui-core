@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.11.3
+ - Added *extend* property to *UiTemplate* class for better data handling.
+ - Added more code docs.
+ - Fixed *__forceExtend* when no setting are provided.
+
 ## 0.11.2
  - On *UiComponent* construction allow ```settings.__forceExtend = true``` to extend the config and overwrite types.
 

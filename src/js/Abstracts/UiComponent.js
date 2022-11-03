@@ -255,7 +255,7 @@ export class UiComponent extends EventDispatcher {
 
         // Allow for a forced extend of the config
         let override_extend = false;
-        if ( settings.__forceExtend === true ) {
+        if ( settings && settings.__forceExtend === true ) {
             override_extend = true;
             delete settings.__forceExtend;
         }

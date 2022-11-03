@@ -11,6 +11,11 @@ import { Exception, isPojo, mergeObject, str2node } from '@squirrel-forge/ui-uti
 class UiTemplateException extends Exception {}
 
 /**
+ * @typedef {Object} UiTemplateData
+ * @property {*} * - Any required template value
+ */
+
+/**
  * Ui template
  * @abstract
  * @class
@@ -39,6 +44,14 @@ export class UiTemplate {
     #data = null;
 
     /**
+     * Extend data
+     * @private
+     * @property
+     * @type {boolean}
+     */
+    #extend = true;
+
+    /**
      * Debug object
      * @public
      * @property
@@ -65,7 +78,7 @@ export class UiTemplate {
     /**
      * Constructor
      * @constructor
-     * @param {null|Object} data - Template data
+     * @param {null|UiTemplateData|Object} data - Template data
      * @param {null|console} debug - Debug object
      */
     constructor( data = null, debug = null ) {
@@ -77,7 +90,7 @@ export class UiTemplate {
      * Template render method
      * @abstract
      * @protected
-     * @param {Object} data - Template data
+     * @param {UiTemplateData|Object} data - Template data
      * @return {string} - Rendered template
      */
     _render( data ) {
@@ -89,12 +102,31 @@ export class UiTemplate {
      * Template validate method
      * @abstract
      * @protected
-     * @param {Object} data - Template data
+     * @param {UiTemplateData|Object} data - Template data
      * @return {boolean} - True if data can be rendered
      */
     _validate( data ) {
         if ( this.debug ) this.debug.warn( this.constructor.name + '::_validate', data );
         throw new UiTemplateException( 'Template requires a validate method' );
+    }
+
+    /**
+     * Extend getter
+     * @public
+     * @return {boolean}
+     */
+    get extend() {
+        return this.#extend;
+    }
+
+    /**
+     * Extend setter
+     * @public
+     * @param state
+     */
+    set extend( state ) {
+        if ( typeof state !== 'boolean' ) throw new UiTemplateException( 'Extend must be a boolean value' );
+        this.#extend = state;
     }
 
     /**
@@ -109,7 +141,7 @@ export class UiTemplate {
     /**
      * Data setter
      * @public
-     * @param {Object} data - Template data
+     * @param {UiTemplateData|Object} data - Template data
      * @return {void}
      */
     set data( data ) {
@@ -120,7 +152,7 @@ export class UiTemplate {
     /**
      * Render template
      * @public
-     * @param {null|Object} data - Template data
+     * @param {null|UiTemplateData|Object} data - Template data
      * @return {string} - Rendered template
      */
     render( data = null ) {
@@ -129,20 +161,37 @@ export class UiTemplate {
         if ( !isPojo( this.#data ) ) throw new UiTemplateException( 'Invalid template data, must be a plain object' );
         const compiled = {};
         mergeObject( compiled, this._defaults, true, true );
-        mergeObject( compiled, this.#data, false, true );
+        mergeObject( compiled, this.#data, this.#extend, true );
         this._validate( compiled );
         if ( this.debug ) this.debug.log( this.constructor.name + '::render', compiled );
         return this._render( compiled );
     }
 
     /**
+     * Render multiple templates
+     * @public
+     * @param {Array<UiTemplateData|Object>} data - Template data list
+     * @param {boolean} asArray - Return result as array
+     * @return {string|Array<string>} - Rendered templates
+     */
+    renderLoop( data, asArray = false ) {
+        const result = [];
+        for ( let i = 0; i < data.length; i++ ) {
+            result.push( this.render( data ) );
+        }
+        return asArray ? result : result.join( '' );
+    }
+
+    /**
      * Render as node
      * @public
-     * @param {null|Object} data - Template data
+     * @param {null|UiTemplateData|Object|Array<UiTemplateData|Object>} data - Template data /list
      * @return {NodeList|Array} - Rendered nodes or empty array
      */
     asNode( data = null ) {
-        const rendered = this.render( data );
+        const rendered = data instanceof Array ?
+            this.renderLoop( data )
+            : this.render( data );
         if ( rendered ) return str2node( rendered );
         return [];
     }
@@ -151,7 +200,7 @@ export class UiTemplate {
      * Append rendered template
      * @public
      * @param {HTMLElement} to - Element to append to
-     * @param {null|Object} data - Template data
+     * @param {null|Object|Array} data - Template data /list
      * @return {void}
      */
     append( to, data = null ) {
