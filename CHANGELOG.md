@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.4
+ - Added *UiTemplateRenderer* class for nested and dynamic rendering of template data.
+ - Improved/shortened *UiTemplate* classes method names and fixed docs.
+
 ## 0.11.3
  - Added *extend* property to *UiTemplate* class for better data handling.
  - Added more code docs.
