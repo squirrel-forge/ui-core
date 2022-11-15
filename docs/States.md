@@ -3,7 +3,7 @@
 
 # Documentation
 ### Javascript / States
-> [Abstracts](Abstracts.md) <[ States ]> [Table of contents](../README.md#table-of-contents)
+> [Renderers](Renderers.md) <[ States ]> [Table of contents](../README.md#table-of-contents)
 
 ## Table of contents
  - [ComponentStates](#componentstates)
@@ -58,4 +58,4 @@ For more details check the [ElementClassStates source file](../src/js/States/Ele
 
 ---
 
-> [Abstracts](Abstracts.md) <[ States ]> [Table of contents](../README.md#table-of-contents)
+> [Renderers](Renderers.md) <[ States ]> [Table of contents](../README.md#table-of-contents)

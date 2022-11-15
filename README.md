@@ -24,6 +24,8 @@ Package contents listing by language and namespace.
      - [UiComponent](docs/Abstracts.md#uicomponent)
      - [UiPlugin](docs/Abstracts.md#uiplugin)
      - [UiTemplate](docs/Abstracts.md#uitemplate)
+   - [Renderers](docs/Renderers.md)
+     - [UiTemplateRenderer](docs/Renderers.md#uitemplaterenderer)
    - [States](docs/States.md)
      - [ComponentStates](docs/States.md#componentstates)
      - [ElementClassStates](docs/States.md#elementclassstates)

@@ -3,7 +3,7 @@
 
 # Documentation
 ### Javascript / Abstracts
-> [Table of contents](../README.md#table-of-contents) <[ Abstracts ]> [States](States.md)
+> [Table of contents](../README.md#table-of-contents) <[ Abstracts ]> [Renderers](Renderers.md)
 
 ## Table of contents
  - [UiComponent](#uicomponent)
@@ -91,17 +91,19 @@ UiTemplate class - Template abstract with some basic functionality and interfaci
 #### Class overview
 ```javascript
 class UiTemplate {
-    static getTemplate( id ) {} // string
+    static dom( id ) {} // string
     constructor( data = null, debug = null ) {}
     debug : null|Object
     errorMessage : null|string
     data : null|Object
+    extend : Boolean
     _defaults : null|Object
     _render( data = null ) {} // string
     _validate( data = null ) {} // boolean
     render( data = null ) {} // string
-    asNode( data = null ) {} // NodeList|Array
-    append( to, data = null ) {} // void
+    loop( data, asArray = false ) {} // string|Array
+    node( data = null ) {} // NodeList|Array
+    append( to, data = null ) {} // NodeList|Array
     toString() {} // string
 }
 ```
@@ -109,4 +111,4 @@ For more details check the [UiTemplate source file](../src/js/Abstracts/UiTempla
 
 ---
 
-> [Table of contents](../README.md#table-of-contents) <[ Abstracts ]> [States](States.md)
+> [Table of contents](../README.md#table-of-contents) <[ Abstracts ]> [Renderers](Renderers.md)
