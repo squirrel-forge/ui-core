@@ -29,7 +29,7 @@ export class UiTemplate {
      * @param {string} id - Element id
      * @return {string} - Template string
      */
-    static getTemplate( id ) {
+    static dom( id ) {
         const template = document.getElementById( id );
         if ( !template ) throw new UiTemplateException( 'Template not found: ' + id );
         return template.innerHTML.trim();
@@ -103,7 +103,8 @@ export class UiTemplate {
      * @abstract
      * @protected
      * @param {UiTemplateData|Object} data - Template data
-     * @return {boolean} - True if data can be rendered
+     * @throws UiTemplateException
+     * @return {void}
      */
     _validate( data ) {
         if ( this.debug ) this.debug.warn( this.constructor.name + '::_validate', data );
@@ -174,7 +175,7 @@ export class UiTemplate {
      * @param {boolean} asArray - Return result as array
      * @return {string|Array<string>} - Rendered templates
      */
-    renderLoop( data, asArray = false ) {
+    loop( data, asArray = false ) {
         const result = [];
         for ( let i = 0; i < data.length; i++ ) {
             result.push( this.render( data ) );
@@ -188,10 +189,9 @@ export class UiTemplate {
      * @param {null|UiTemplateData|Object|Array<UiTemplateData|Object>} data - Template data /list
      * @return {NodeList|Array} - Rendered nodes or empty array
      */
-    asNode( data = null ) {
+    node( data = null ) {
         const rendered = data instanceof Array ?
-            this.renderLoop( data )
-            : this.render( data );
+            this.loop( data ) : this.render( data );
         if ( rendered ) return str2node( rendered );
         return [];
     }
@@ -201,14 +201,15 @@ export class UiTemplate {
      * @public
      * @param {HTMLElement} to - Element to append to
      * @param {null|Object|Array} data - Template data /list
-     * @return {void}
+     * @return {NodeList|Array} - Rendered nodes or empty array
      */
     append( to, data = null ) {
         if ( !( to instanceof HTMLElement ) ) throw new UiTemplateException( 'Requires a HTMLElement to append to' );
-        const nodes = this.asNode( data );
+        const nodes = this.node( data );
         for ( let i = 0; i < nodes.length; i++ ) {
             to.appendChild( nodes[ i ] );
         }
+        return nodes;
     }
 
     /**
