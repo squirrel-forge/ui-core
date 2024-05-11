@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.5
+ - Added *eventPrefix* default config option to *UiComponent*.
+ - Added *event_state()* event prefix argument and handling to *UiComponent* method. 
+ - Added *UiTemplate._process_defaults* method for processing classes and attributes data.
+ - Added second argument *prefix* to method *UiComponent.event_state*.
+ - Added static *keepMarker* property to *UiTemplatRenderer*, to allow maintaining object or array structures during render.
+
 ## 0.11.4
  - Added *UiTemplateRenderer* class for nested and dynamic rendering of template data.
  - Improved/shortened *UiTemplate* classes method names and fixed docs.
