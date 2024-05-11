@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.11.5
+## 0.12.0
  - Added *eventPrefix* default config option to *UiComponent*.
  - Added *event_state()* event prefix argument and handling to *UiComponent* method. 
  - Added *UiTemplate._process_defaults* method for processing classes and attributes data.

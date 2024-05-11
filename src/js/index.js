@@ -1,6 +1,6 @@
 /* !
  * @module      : @squirrel-forge/ui-core
- * @version     : 0.11.4
+ * @version     : 0.12.0
  * @license     : MIT
  * @copyright   : 2022 squirrel-forge
  * @author      : Daniel Hartwell aka. siux <me@siux.info>
