@@ -5,6 +5,11 @@ import { ComponentStates } from '../States/ComponentStates.js';
 import { Exception, EventDispatcher, Config, Plugins, attributeJSON, requireUniqid, strCreate, isPojo } from '@squirrel-forge/ui-util';
 
 /**
+ * @typedef {Object} UiComponentDefaultConfig
+ * @property {null|string} eventPrefix - Prefix for event type names
+ */
+
+/**
  * Ui component exception
  * @class
  * @extends Exception
@@ -242,7 +247,7 @@ export class UiComponent extends EventDispatcher {
         this.#plugins?.run( 'extendDefaultConfig', [ extend ] );
 
         // Create component config
-        this.#config = new Config( defaults || {}, extend );
+        this.#config = new Config( defaults || { eventPrefix : null }, extend );
 
         // Set config options from attributes
         this.#setConfigFromAttributes();
@@ -363,7 +368,7 @@ export class UiComponent extends EventDispatcher {
 
         // Delay the init dispatch and children for object availability reasons
         window.setTimeout( () => {
-            this.dispatchEvent( 'initialized' );
+            this.dispatchEvent( ( this.config.get( 'eventPrefix' ) || '' ) + 'initialized' );
             if ( afterInitialized ) afterInitialized( this );
         }, 1 );
     }
@@ -396,7 +401,7 @@ export class UiComponent extends EventDispatcher {
                 }
             }
             if ( types.length && this.debug ) this.debug.groupEnd();
-            this.dispatchEvent( 'children.initialized' );
+            this.dispatchEvent( ( this.config.get( 'eventPrefix' ) || '' ) + 'children.initialized' );
         }
     }
 
@@ -515,112 +520,18 @@ export class UiComponent extends EventDispatcher {
      * Set state from event
      * @public
      * @param {Event} event - Event object
+     * @param {string|null} prefix - Event type prefix
      * @return {void}
      */
-    event_state( event ) {
+    event_state( event, prefix ) {
         if ( !event || typeof event.type !== 'string' || !event.type.length ) {
             throw new UiComponentException( 'No valid event type available' );
         }
-        this.states.set( event.type );
+        let type = event.type;
+        if ( typeof prefix !== 'string' ) prefix = this.config.get( 'eventPrefix' );
+        if ( prefix && prefix.length && type.substring( 0, prefix.length ) === prefix ) {
+            type = type.substring( prefix.length );
+        }
+        this.states.set( type );
     }
-
-    // Inherited from: EventDispatcher
-
-    /**
-     * Check for compatibility
-     * @name UiComponent.isCompat
-     * @method
-     * @static
-     * @public
-     * @param {*} obj - EventDispatcher target or parent
-     * @return {boolean} - Is compatible
-     */
-
-    /**
-     * Debug reference
-     * @name UiComponent#debug
-     * @property
-     * @readonly
-     * @public
-     * @type {null|console|Object}
-     */
-
-    /**
-     * Target reference
-     * @name UiComponent#target
-     * @property
-     * @readonly
-     * @public
-     * @type {null|HTMLElement|EventDispatcher|EventDispatcherInterface}
-     */
-
-    /**
-     * Parent reference
-     * @name UiComponent#parent
-     * @property
-     * @readonly
-     * @public
-     * @type {null|HTMLElement|EventDispatcher|EventDispatcherInterface}
-     */
-
-    /**
-     * True if no target element is set
-     * @name UiComponent#isSimulated
-     * @property
-     * @readonly
-     * @public
-     * @type {boolean}
-     */
-
-    /**
-     * Dispatch event
-     * @name UiComponent#dispatchEvent
-     * @method
-     * @public
-     * @param {string} name - Event name
-     * @param {null|object} detail - Event data
-     * @param {boolean} bubbles - Allow event to bubble
-     * @param {boolean} cancelable - Allow event to be cancelled
-     * @return {boolean} - False if cancelled, true otherwise
-     */
-
-    /**
-     * Check name for existing handlers
-     * @name UiComponent#hasSimulated
-     * @method
-     * @public
-     * @param {string} name - Event name
-     * @return {boolean} - True if event has listeners
-     */
-
-    /**
-     * Register event listener
-     * @name UiComponent#addEventListener
-     * @method
-     * @public
-     * @param {string} name - Event name
-     * @param {Function} callback - Callback to register for event
-     * @param {boolean|Object} useCaptureOptions - Capture style or options Object
-     * @return {void}
-     */
-
-    /**
-     * Remove event listener
-     * @name UiComponent#removeEventListener
-     * @method
-     * @public
-     * @param {string} name - Event name
-     * @param {function} callback - Callback to deregister from event
-     * @param {boolean|Object} useCaptureOptions - Capture style or options Object
-     * @return {void}
-     */
-
-    /**
-     * Register an array of event listeners
-     * @name UiComponent#addEventList
-     * @method
-     * @public
-     * @param {Array<Array>} events - Array of addEventListener argument arrays
-     * @return {void}
-     */
 }
