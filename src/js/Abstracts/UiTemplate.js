@@ -16,6 +16,18 @@ class UiTemplateException extends Exception {}
  */
 
 /**
+ * @typedef {Object} UiDefaultsTemplateData
+ * @property {null|string[]} classes - List of classes
+ * @property {null|string|string[]} attributes - List of attributes
+ */
+
+/**
+ * @typedef {Object} UiProcessedDefaultsTemplateData
+ * @property {string[]} classes - List of classes
+ * @property {string[]} attributes - List of attributes
+ */
+
+/**
  * Ui template
  * @abstract
  * @class
@@ -148,6 +160,31 @@ export class UiTemplate {
     set data( data ) {
         if ( !isPojo( data ) ) throw new UiTemplateException( 'Cannot set invalid template data, must be a plain object' );
         this.#data = data;
+    }
+
+    /**
+     * Process default data
+     * @protected
+     * @param {UiTemplateData|Object} data - Data object
+     * @param {UiDefaultsTemplateData|Object} defaults - Default data
+     * @param {null|string} addId - Add id attribute
+     * @return {UiProcessedDefaultsTemplateData} - Processed defaults
+     */
+    _process_defaults( data, defaults, addId = true ) {
+        const classes = defaults?.classes || [];
+        if ( data.classes instanceof Array ) {
+            classes.push( ...data.classes );
+        } else if ( typeof data.classes === 'string' ) {
+            classes.push( data.classes );
+        }
+        const attributes = defaults?.attributes || [];
+        if ( addId && data.id ) attributes.push( `id="${data.id}"` );
+        if ( data.attributes instanceof Array ) {
+            attributes.push( ...data.attributes );
+        } else if ( typeof data.attributes === 'string' ) {
+            attributes.push( data.attributes );
+        }
+        return { classes, attributes };
     }
 
     /**
