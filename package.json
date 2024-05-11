@@ -29,6 +29,6 @@
   },
   "homepage": "https://github.com/squirrel-forge/ui-core#readme",
   "dependencies": {
-    "@squirrel-forge/ui-util": "^0.9.x"
+    "@squirrel-forge/ui-util": "^0.10.x"
   }
 }
