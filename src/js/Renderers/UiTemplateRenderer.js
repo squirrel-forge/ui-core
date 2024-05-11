@@ -80,6 +80,15 @@ export class UiTemplateRenderer {
     static tmpl = {};
 
     /**
+     * Keep marker
+     * @public
+     * @static
+     * @property
+     * @type {string}
+     */
+    static keepMarker = '__keep__';
+
+    /**
      * Set template
      * @public
      * @static
@@ -135,7 +144,7 @@ export class UiTemplateRenderer {
         for ( let i = 0; i < entries.length; i++ ) {
             const [ item_path, item_data ] = entries[ i ];
             const rendered = this.recursive( item_data, trace + '.' + item_path );
-            strCreate( item_path, rendered, result, false, false, this.debug );
+            strCreate( item_path, rendered, result, true, false, this.debug );
         }
         return result;
     }
@@ -165,7 +174,7 @@ export class UiTemplateRenderer {
      * @static
      * @param {UiTemplateRendererData} data - Render object or array
      * @param {string} trace - Trace string
-     * @return {string} - Rendered data
+     * @return {string|*[]} - Rendered data
      */
     static recursive( data, trace ) {
         const to = typeof data;
@@ -190,10 +199,20 @@ export class UiTemplateRenderer {
             for ( let i = 0; i < data.length; i++ ) {
                 result.push( this.recursive( data[ i ], trace + `[${i}]` ) );
             }
+
+            // Keep array structure for processing inside template
+            if ( result[ 0 ] === this.keepMarker ) {
+                result.shift();
+                return result;
+            }
             return result.join( '' );
 
         } else if ( this.isRenderData( data ) ) {
             return this.data( data, trace );
+        } else if ( isPojo( data ) && data[ this.keepMarker ] === true ) {
+            return data;
+        } else if ( typeof data.toString === 'function' ) {
+            return data.toString();
         } else {
             if ( this.debug ) this.debug.error( this.name + '::render', data );
             throw new UiTemplateRendererException( 'Unknown data type: ' + typeof data + ' [' + trace + ']' );
@@ -208,7 +227,10 @@ export class UiTemplateRenderer {
      * @return {string} - Rendered data
      */
     static render( data ) {
-        return this.recursive( data, 'data' );
+        if ( this.debug ) this.debug.groupCollapsed( this.name + '::render' );
+        const result = this.recursive( data, 'data' );
+        if ( this.debug ) this.debug.groupEnd();
+        return result;
     }
 
     /**
