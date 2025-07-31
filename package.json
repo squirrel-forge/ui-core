@@ -4,7 +4,10 @@
   "description": "A collection of interface, classes, functions and abstracts made for the browser and babel compatible.",
   "main": "src/js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:js": "simple-webpack src/js __dev/build -p -s",
+    "build:js:debug": "simple-webpack src/js __dev/build -p -s --no-minify --keep-names",
+    "build": "npm run build:js"
   },
   "directories": {
     "docs": "docs",
@@ -30,5 +33,8 @@
   "homepage": "https://github.com/squirrel-forge/ui-core#readme",
   "dependencies": {
     "@squirrel-forge/ui-util": "^0.10.x"
+  },
+  "devDependencies": {
+    "@squirrel-forge/simple-webpack": "^0.12.x"
   }
 }

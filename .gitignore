@@ -20,4 +20,5 @@ $RECYCLE.BIN/
 # Much credit to http://gitignore.io
 
 ### Internal ###
+__dev/
 node_modules/
