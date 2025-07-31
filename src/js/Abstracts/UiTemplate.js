@@ -126,7 +126,7 @@ export class UiTemplate {
     /**
      * Extend getter
      * @public
-     * @return {boolean}
+     * @return {boolean} - Extendable state
      */
     get extend() {
         return this.#extend;
@@ -135,7 +135,8 @@ export class UiTemplate {
     /**
      * Extend setter
      * @public
-     * @param state
+     * @param {boolean} state - Extendable state
+     * @return {void}
      */
     set extend( state ) {
         if ( typeof state !== 'boolean' ) throw new UiTemplateException( 'Extend must be a boolean value' );

@@ -55,7 +55,7 @@ export class UiTemplateRenderer {
      * Check for render data structure
      * @public
      * @static
-     * @param data
+     * @param {UiTemplateRendererTemplateData} data - Render data
      * @return {boolean} - True if render data
      */
     static isRenderData( data ) {
@@ -112,7 +112,7 @@ export class UiTemplateRenderer {
      */
     static require( name, tmpl ) {
         try {
-            this.add( name, tmpl )
+            this.add( name, tmpl );
         } catch ( e ) {
             if ( typeof tmpl !== 'object' ) throw e;
         }
@@ -189,7 +189,9 @@ export class UiTemplateRenderer {
             } catch ( e ) {
                 throw new UiTemplateRendererException( 'Failed to render custom callback [' + trace + ']', e );
             }
-            if ( typeof result !== 'string' ) throw new UiTemplateRendererException( 'A custom callback must always return a string [' + trace + ']' );
+            if ( typeof result !== 'string' ) {
+                throw new UiTemplateRendererException( 'A custom callback must always return a string [' + trace + ']' );
+            }
             return result;
 
         } else if ( data instanceof Array ) {
@@ -255,7 +257,7 @@ export class UiTemplateRenderer {
      * @return {NodeList|Array} - Rendered nodes or empty array
      */
     static append( to, data = null ) {
-        if ( !( to instanceof HTMLElement ) ) throw new UiTemplateException( 'Requires a HTMLElement to append to' );
+        if ( !( to instanceof HTMLElement ) ) throw new UiTemplateRendererException( 'Requires a HTMLElement to append to' );
         const nodes = this.node( data );
         for ( let i = 0; i < nodes.length; i++ ) {
             to.appendChild( nodes[ i ] );

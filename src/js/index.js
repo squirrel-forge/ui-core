@@ -2,7 +2,7 @@
  * @module      : @squirrel-forge/ui-core
  * @version     : 0.12.0
  * @license     : MIT
- * @copyright   : 2022 squirrel-forge
+ * @copyright   : 2025 squirrel-forge
  * @author      : Daniel Hartwell aka. siux <me@siux.info>
  * @description : A collection of interface, classes, functions and abstracts made for the browser and babel compatible.
  */
@@ -17,7 +17,7 @@ export { UiTemplate } from './Abstracts/UiTemplate.js';
 /**
  * Renderers
  */
-export { UiTemplateRenderer } from './Renderers/UiTemplateRenderer.js'
+export { UiTemplateRenderer } from './Renderers/UiTemplateRenderer.js';
 
 /**
  * States
